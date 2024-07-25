@@ -1,0 +1,6 @@
+#pragma once
+#define _CRT_SECURE_NO_DEPRECATE
+#include "data_structures.h"
+
+char* read_all_file(char* path);
+size_t file_size(FILE* stream);

@@ -75,6 +75,10 @@
     <ExternalIncludePath>C:\Users\matha\Documents\DLL\SDL-release-2.30.5\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>C:\Users\matha\Documents\DLL\SDL-release-2.30.5\VisualC\x64\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ExternalIncludePath>C:\Users\matha\Documents\DLL\SDL-release-2.30.5\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>C:\Users\matha\Documents\DLL\SDL-release-2.30.5\VisualC\x64\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -131,19 +135,25 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="README.txt" />
+    <Text Include="WORKFLOW.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assembly.h" />
+    <ClInclude Include="data_structures.h" />
+    <ClInclude Include="files.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="linkedlist.h" />
     <ClInclude Include="str.h" />
     <ClInclude Include="table.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="assembly.c" />
+    <ClCompile Include="files.c" />
     <ClCompile Include="linkedlist.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="str.c" />

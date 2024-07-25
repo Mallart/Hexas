@@ -44,7 +44,83 @@ void str_ptr_remove_char(char* str, char c)
 		str[i] = str[i + 1];
 }
 
-char* byte_bin_to_hex(char byte)
+char** str_split(char* str, char delimiter)
+{
+	size_t _strlen = strlen(str);
+	size_t n_delims = 0;
+	for (size_t i = 0; i < _strlen; ++i)
+		if (str[i] == delimiter)
+			n_delims++;
+	char** _array = malloc(sizeof(char*) * (n_delims + 2));
+	if (!_array)
+		return 0;
+	size_t alloc_number = 0;
+	for (size_t i = 0; alloc_number < n_delims + 1; i = str_find_char(str, delimiter) + 1, alloc_number++, str += i)
+	{
+		size_t str_size = str_find_char(str, delimiter);
+		_array[alloc_number] = malloc(sizeof(char) * (str_size + 1));
+		for (size_t ii = 0; ii < str_size; ++ii)
+			_array[alloc_number][ii] = str[ii];
+		_array[alloc_number][str_size] = 0;
+	}
+	_array[n_delims + 1] = 0;
+	return _array;
+}
+
+size_t str_table_size(char** strtable)
+{
+	size_t i = 0;
+	for (; strtable[i]; ++i);
+	return i;
+}
+
+void delete_str_table(char** strtable)
+{
+	for (size_t i = 0; i < str_table_size(strtable); ++i)
+		free(strtable[i]);
+	free(strtable);
+}
+
+dstr* str_to_dstr(char* str)
+{
+	dstr* d = dstr_new(str);
+	free(str);
+	return d;
+}
+
+char* str_substr(char* str, size_t origin, size_t count)
+{
+	if (!count)
+		count = strlen(str) - origin;
+	char* _str = malloc(sizeof(char) * (count + 1));
+	str += origin;
+	if (!str || !_str)
+		return 0;
+	for (size_t i = 0; i < count; ++i)
+		_str[i] = str[i];
+	_str[count] = '\0';
+	return _str;
+}
+
+size_t str_find_char(char* str, char c)
+{
+	size_t i = 0;
+	for (; str[i]; i++)
+		if (str[i] == c || str[i] == 0)
+			return i;
+	return i;
+}
+
+size_t str_find_last_char(char* str, char c)
+{
+	size_t i = strlen(str);
+	for (; i; i--)
+		if (str[i] == c)
+			return i;
+	return i;
+}
+
+char* byte_bin_to_hex(unsigned char byte)
 {
 	char msd = (byte & 0xf0) >> 4;
 	char lsd = byte & 0xf;
@@ -71,23 +147,24 @@ char* bin_to_hex(char* bin_data, size_t count)
 	if (!s)
 		return 0;
 	// TODO
-	for (size_t i = 0; i < count; i+=2)
+	for (size_t i = 0; i < count * 2; i+=2)
 	{
 		char* value = byte_bin_to_hex(bin_data[lround((i / 2.0))]);
 		s[i] = value[0];
 		s[i + 1] = value[1];
 	}
-	s[count] = 0;
+	s[count * 2] = 0;
 	return s;
 }
 
 char* hex_to_bin(char* hex_values, size_t count)
 {
-	long _strcount = lround(count / 2.0);
+	long _strcount = count;
 	char* bin = malloc(sizeof(char) * (_strcount + 1));
 	if (!bin)
 		return 0;
 	for (size_t i = 0; i < _strcount; ++i)
 		bin[i] = byte_hex_to_bin(hex_values + i * 2);
+	bin[_strcount] = 0;
 	return bin;
 }

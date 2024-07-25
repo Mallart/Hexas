@@ -18,6 +18,7 @@
     <Text Include="README.txt">
       <Filter>Fichiers de ressources</Filter>
     </Text>
+    <Text Include="WORKFLOW.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assembly.h">
@@ -35,6 +36,12 @@
     <ClInclude Include="gui.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="data_structures.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="files.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="linkedlist.c">
@@ -47,6 +54,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="str.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="files.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="assembly.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

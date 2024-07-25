@@ -1,0 +1,7 @@
+Here will be described some things I need to make clear for my future self regarding the way I compute
+informations and store them.
+
+ASSEMBLY:
+- An assembly descriptor file is an extended CSV file storing the informations about an assembly's 
+  instruction set.
+- Each assembly descriptor file should be named after the assembly's name it describes.
