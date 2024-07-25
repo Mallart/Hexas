@@ -1,0 +1,5 @@
+// Les fichiers hint permettent à l'IDE Visual Studio d'interpréter les identificateurs Visual C++
+// tels que les noms de fonctions et de macros.
+// Pour plus d'informations, consultez https://go.microsoft.com/fwlink/?linkid=865984
+#define LINKED_LIST_FUNC(func, __VA_ARGS__) linked_list_##func(__VA_ARGS__)
+#define DSTR_FUNC(fname, __VA_ARGS__) dstr_##fname(__VA_ARGS__)

@@ -1,0 +1,23 @@
+#pragma once
+#include "linkedlist.h"
+
+// Table function
+#define TABLE_FUNC(fname, ...) table_##fname(__VA_ARGS__)
+// Table function
+#define TBL_F(fname, ...) TABLE_FUNC(fname, __VA_ARGS__)
+
+// basically a linked list of linked lists.
+typedef struct
+{
+	linked_list* rows;
+} table;
+
+table* TABLE_FUNC(new);
+table* TABLE_FUNC(add_row, table* t, linked_list* _ll);
+linked_list* TABLE_FUNC(get_row, table* t, size_t index);
+
+void TABLE_FUNC(print, table* t);
+void TABLE_FUNC(print_row, table* t, size_t index);
+// in number of chars
+size_t TABLE_FUNC(max_width, table* t);
+void TABLE_FUNC(free, table* t);
