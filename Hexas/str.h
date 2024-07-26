@@ -49,3 +49,7 @@ unsigned char byte_hex_to_bin(char* hex);
 char* bin_to_hex(char* bin_data, size_t count);
 // converts "count" hexadecimal bytes (pair of hex digits, ex: 0xF4) values into bytes.
 char* hex_to_bin(char* bin_data, size_t count);
+
+// removes any blank character before the first alphanumeric character and after the last.
+// WARNING: edits the string given in parameter.
+char* str_trim(char* str);

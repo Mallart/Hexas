@@ -168,3 +168,25 @@ char* hex_to_bin(char* hex_values, size_t count)
 	bin[_strcount] = 0;
 	return bin;
 }
+
+// returns 0 if a character is alphanumeric, otherwise returns 1
+char prv_is_blank(char c)
+{
+	const char* blank_characters = " \n\t\r\0";
+	for (size_t _c = 0; blank_characters[_c]; ++_c)
+		if (c == blank_characters[_c])
+			return 1;
+	return 0;
+}
+
+char* str_trim(char* str)
+{
+	// TODO:make this work for the end of the string
+	size_t begin = 0;
+	for (; str[begin] && prv_is_blank(str[begin]); ++begin);
+	str += begin;
+	size_t end = strlen(str);
+	for (; end > begin && prv_is_blank(str[end]); --end);
+	str[end] = 0;
+	return str;
+}

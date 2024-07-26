@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\gui">
+      <UniqueIdentifier>{1ef7d3cc-4e78-439b-a257-913defb68705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\gui">
+      <UniqueIdentifier>{32f65bea-2138-4038-ac09-b88087eea618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\compilation">
+      <UniqueIdentifier>{06cbd990-b43a-4fb6-a162-a09d683cc4ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\compilation">
+      <UniqueIdentifier>{4fe7ca82-659e-4f5e-81da-d664282f40bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">
@@ -33,14 +45,17 @@
     <ClInclude Include="str.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="gui.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="data_structures.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="files.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="gui.h">
+      <Filter>Fichiers d%27en-tête\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="parser.h">
+      <Filter>Fichiers d%27en-tête\compilation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +77,13 @@
     <ClCompile Include="assembly.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="parser.c">
+      <Filter>Fichiers sources\compilation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="x86.csv" />
+    <None Include="asm_example.csv" />
   </ItemGroup>
 </Project>

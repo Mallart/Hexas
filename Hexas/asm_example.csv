@@ -1,0 +1,8 @@
+MOV;ADD;SUB;MUL;DIV;POW;MOD;EXP
+PUSH;POP;OR;AND;NOT;XOR;XAND;NAND
+IMUL;JMP;CMP;PAUSE;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;

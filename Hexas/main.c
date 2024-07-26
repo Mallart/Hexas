@@ -38,6 +38,10 @@ void tests()
 	char** table = str_split(csv_example, ';');
 	for (size_t i = 0; table[i]; ++i)
 		printf("Element of test CSV table %u: %s\n", i, table[i]);
+
+	char* trimmed = "    \t this isnt trimmed lol \n\t  ";
+	str_trim(trimmed);
+	printf(trimmed);
 	exit(0);
 }
 #endif

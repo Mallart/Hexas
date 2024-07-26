@@ -148,6 +148,7 @@
     <ClInclude Include="files.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="linkedlist.h" />
+    <ClInclude Include="parser.h" />
     <ClInclude Include="str.h" />
     <ClInclude Include="table.h" />
   </ItemGroup>
@@ -156,11 +157,14 @@
     <ClCompile Include="files.c" />
     <ClCompile Include="linkedlist.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="parser.c" />
     <ClCompile Include="str.c" />
     <ClCompile Include="table.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="asm_example.csv" />
     <None Include="cpp.hint" />
+    <None Include="x86.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
