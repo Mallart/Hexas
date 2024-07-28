@@ -17,6 +17,7 @@ void tests()
 {
 	ASM test_asm = asm_parse_csv("./asm_example.csv");
 	asm_display(&test_asm);
+	printf("0x%64x", asm_get_opcode(&test_asm, "PAUSE"));
 	exit(0);
 }
 #endif

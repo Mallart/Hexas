@@ -29,6 +29,36 @@ ASM asm_parse_csv(char* path)
     return (ASM){ .name = str_to_dstr(asm_name), .size = asm_size, .instructions = asm_table };
 }
 
+LPOINT asm_get_max_index(ASM* asm)
+{
+    return (LPOINT) { .x = TBL_F(columns_number, asm->instructions), .y = TBL_F(rows_number, asm->instructions) };
+}
+
+
+char* asm_get_instruction(ASM* asm, int64 opcode)
+{
+    // TODO
+    // getting the opcode size
+    byte opcode_size = 0;
+
+    if (opcode | 0xff0000000000)
+    return 0;
+}
+
+int64 asm_get_opcode(ASM* asm, char* instruction)
+{
+    ll* instructions = TBL_F(aslist, asm->instructions);
+    size_t opcode;
+    for (size_t i = 0; i < LL_F(size, instructions); ++i)
+    {
+        // TODO
+        opcode = i % TBL_F(columns_number, asm->instructions);
+        if (str_equals(instruction, ((dstr*)LL_F(get, instructions, i))->str))
+            return i;
+    }
+    return 0;
+}
+
 void asm_display(ASM* asm)
 {
     printf("-- Assembly info display --\n");
@@ -36,4 +66,5 @@ void asm_display(ASM* asm)
     printf("Architecture: \t%i bits (x%i)\n", asm->size, asm->size);
     printf("Instructions set:\n");
     table_print(asm->instructions);
+    printf("---------------------------\n");
 }

@@ -25,3 +25,6 @@ size_t TABLE_FUNC(width, table* t);
 size_t TABLE_FUNC(columns_number, table* t);
 size_t TABLE_FUNC(rows_number, table* t);
 void TABLE_FUNC(free, table* t);
+
+// returns all the table content as a single linked list, iterable.
+linked_list* TABLE_FUNC(aslist, table* t);

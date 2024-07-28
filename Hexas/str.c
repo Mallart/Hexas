@@ -215,3 +215,8 @@ char* str_trim(char* str)
 	_str[end + 1] = 0;
 	return _str;
 }
+
+unsigned char str_equals(char* str1, char* str2)
+{
+	return !strcmp(str1, str2);
+}

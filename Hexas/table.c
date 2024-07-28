@@ -111,3 +111,16 @@ void TABLE_FUNC(free, table* t)
 		LL_F(free, first_row);
 	free(t);
 }
+
+linked_list* TABLE_FUNC(aslist, table* t)
+{
+	ll* list = new(LINKED_LIST);
+	ll* row = TBL_F(get_row, t, 0);
+	for(size_t irow = 0; irow < LL_F(size, row); ++irow, row = TBL_F(get_row, t, irow))
+	{
+		ll* column = LL_F(begin, row);
+		for (size_t icolumn = 0; icolumn < LL_F(size, column); ++icolumn, column = column->next)
+			LL_F(append, list, column->content);
+	}
+	return list;
+}

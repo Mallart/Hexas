@@ -3,7 +3,15 @@
 #include "linkedlist.h"
 #include "table.h"
 
-typedef char byte;
+typedef unsigned char byte;
+typedef short int16;
+typedef int int32;
+#ifdef _WIN32
+typedef long long int64;
+#else
+typedef long int64;
+#endif
+
 
 typedef struct
 {

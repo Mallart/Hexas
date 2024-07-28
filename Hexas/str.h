@@ -53,3 +53,5 @@ char* hex_to_bin(char* bin_data, size_t count);
 
 // removes any blank character before the first alphanumeric character and after the last.
 char* str_trim(char* str);
+
+unsigned char str_equals(char* str1, char* str2);
