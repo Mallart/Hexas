@@ -1,5 +1,5 @@
 #pragma once
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,6 +32,7 @@ size_t str_table_size(char** strtable);
 void delete_str_table(char** strtable);
 // frees the original string to create a new dynamic string.
 dstr* str_to_dstr(char* str);
+inline char* dstr_to_str(dstr* _dstr);
 
 // Returns a substring of the given string, starting at origin and ending at origin + count.
 // if count is 0, will return a copy of the given string from origin to end of original string.
@@ -51,5 +52,4 @@ char* bin_to_hex(char* bin_data, size_t count);
 char* hex_to_bin(char* bin_data, size_t count);
 
 // removes any blank character before the first alphanumeric character and after the last.
-// WARNING: edits the string given in parameter.
 char* str_trim(char* str);

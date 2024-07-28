@@ -10,6 +10,7 @@ char* read_all_file(char* path)
         if (!file_content)
             return 0;
         fread(file_content, sizeof(char), _file_size, f);
+        file_content[_file_size] = 0;
         fclose(f);
         return file_content;
     }
@@ -20,8 +21,9 @@ size_t file_size(FILE* stream)
 {
     if (!stream)
         return 0;
-    fseek(stream, SEEK_END, 0);
+    size_t _cur = ftell(stream);
+    fseek(stream, 0, SEEK_END);
     size_t size = ftell(stream);
-    fseek(stream, SEEK_SET, 0);
+    fseek(stream, _cur, SEEK_SET);
     return size;
 }

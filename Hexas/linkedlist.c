@@ -108,6 +108,15 @@ void* LINKED_LIST_FUNC(get, linked_list* list, size_t index)
 	return _le->content;
 }
 
+void* LINKED_LIST_FUNC(get_index, linked_list* list, size_t index)
+{
+	// linked list iterator
+	le* _le = LL_F(begin, list);
+	for (size_t i = 0; i < index && _le->next; ++i)
+		_le = _le->next;
+	return _le;
+}
+
 void LINKED_LIST_FUNC(free, linked_list* list)
 {
 	linked_element* fe = LINKED_LIST_FUNC(begin, list);

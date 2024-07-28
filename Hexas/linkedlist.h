@@ -35,5 +35,7 @@ linked_element* LINKED_LIST_FUNC(begin, linked_list* list);
 linked_element* LINKED_LIST_FUNC(end, linked_list* list);
 // Gets the content from a linked list at a given index.
 void* LINKED_LIST_FUNC(get, linked_list* list, size_t index);
+// Gets a linked element from a linked list at a given index.
+void* LINKED_LIST_FUNC(get_index, linked_list* list, size_t index);
 // frees the memory from all the list data.
 void LINKED_LIST_FUNC(free, linked_list* list);

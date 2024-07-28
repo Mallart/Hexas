@@ -76,16 +76,35 @@ size_t str_table_size(char** strtable)
 
 void delete_str_table(char** strtable)
 {
+	if (!strtable)
+		return;
 	for (size_t i = 0; i < str_table_size(strtable); ++i)
-		free(strtable[i]);
-	free(strtable);
+		if (strtable[i])
+			free(strtable[i]);
+	if(strtable)
+		free(strtable);
 }
 
 dstr* str_to_dstr(char* str)
 {
-	dstr* d = dstr_new(str);
+	dstr* d = malloc(sizeof(dstr));
+	if (!d)
+		return 0;
+	size_t _len = strlen(str);
+	d->str = malloc(sizeof(char) * _len ? _len : 1);
+	if (!d->str)
+		return 0;
+	if(_len)
+		strcpy(d->str, str);
+	else
+		strcpy(d->str, "\0");
 	free(str);
 	return d;
+}
+
+char* dstr_to_str(dstr* _dstr)
+{
+	return _dstr->str;
 }
 
 char* str_substr(char* str, size_t origin, size_t count)
@@ -181,12 +200,18 @@ char prv_is_blank(char c)
 
 char* str_trim(char* str)
 {
-	// TODO:make this work for the end of the string
+	if (!strlen(str))
+		return str;
 	size_t begin = 0;
 	for (; str[begin] && prv_is_blank(str[begin]); ++begin);
 	str += begin;
-	size_t end = strlen(str);
-	for (; end > begin && prv_is_blank(str[end]); --end);
-	str[end] = 0;
-	return str;
+	char* _str = malloc(sizeof(char) * (strlen(str) + 1));
+	if (!_str)
+		return str;
+	strcpy(_str, str);
+	// TODO:make this work for the end of the string
+	size_t end = strlen(_str) - 1;
+	for (; end > begin && prv_is_blank(_str[end]); --end);
+	_str[end + 1] = 0;
+	return _str;
 }
