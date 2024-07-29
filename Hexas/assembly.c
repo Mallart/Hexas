@@ -39,9 +39,8 @@ char* asm_get_instruction(ASM* asm, int64 opcode)
 {
     // TODO
     // getting the opcode size
-    byte opcode_size = 0;
+    byte opcode_size = size_of(opcode);
 
-    if (opcode | 0xff0000000000)
     return 0;
 }
 

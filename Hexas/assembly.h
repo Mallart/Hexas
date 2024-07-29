@@ -5,8 +5,15 @@
 // TODO: assembly data structure
 // TODO: CSV files reading for modular assembly conversion
 
-// There are two "classes" of assembly: x32 bits and x64 bits.
-// To use functions with 32 bits assemblies, 
+// Note on assembly files:
+// It's really important to have a table with fixed width and length, as it's what's used to read and retrieve
+// opcodes.
+// It's not fixed in bytes, so you can have assembly tables with, for instance, 4 columns; leading to
+// an opcode splitting of 3 bits (3 bits to write 4), meaning the first instruction will be 0x00, and the last
+// reachable will be 0x44 (0b01000100).
+// Assembly instructions data files must be squared (number of columns and of rows equal), and
+// each row and each column must have the exact same length, as the rows length are used to split opcodes into
+// two different coordinates (rows and columns).
 
 // Assembly is a data structure containing relevant infos about an assembly.
 typedef struct

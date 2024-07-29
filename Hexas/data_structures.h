@@ -39,3 +39,8 @@ typedef struct
 
 // return the bit width (number of bits to write) n.
 size_t size_of(size_t n);
+// more reliable than size_of but slower.
+size_t size_of_pow(size_t n);
+
+// prints any number in binary.
+void bprint(size_t n);
