@@ -47,14 +47,17 @@ char* asm_get_instruction(ASM* asm, int64 opcode)
 
 int64 asm_get_opcode(ASM* asm, char* instruction)
 {
-    ll* instructions = TBL_F(aslist, asm->instructions);
     size_t opcode;
-    for (size_t i = 0; i < LL_F(size, instructions); ++i)
+    ll* row = LL_F(begin, asm->instructions->rows);
+    for (size_t irow = 0; irow < LL_F(size, row); ++irow, row = row->next)
     {
-        // TODO
-        opcode = i % TBL_F(columns_number, asm->instructions);
-        if (str_equals(instruction, ((dstr*)LL_F(get, instructions, i))->str))
-            return i;
+        ll* column = row->content;
+        for (size_t icolumn = 0; icolumn < LL_F(size, column); ++icolumn, column = column->next)
+        {
+            opcode = irow << size_of(TBL_F(rows_number, asm->instructions)) | icolumn;
+            if (str_equals(instruction, ((dstr*)LL_F(get, column, icolumn))->str))
+                return opcode;
+        }
     }
     return 0;
 }

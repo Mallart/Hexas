@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assembly.c" />
+    <ClCompile Include="data_structures.c" />
     <ClCompile Include="files.c" />
     <ClCompile Include="linkedlist.c" />
     <ClCompile Include="main.c" />

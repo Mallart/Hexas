@@ -36,3 +36,6 @@ typedef struct
 	double x;
 	double y;
 } dpoint, dPoint, DPOINT, dpoint2;
+
+// return the bit width (number of bits to write) n.
+size_t size_of(size_t n);

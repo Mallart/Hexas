@@ -80,6 +80,9 @@
     <ClCompile Include="parser.c">
       <Filter>Fichiers sources\compilation</Filter>
     </ClCompile>
+    <ClCompile Include="data_structures.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
