@@ -37,11 +37,14 @@ LPOINT asm_get_max_index(ASM* asm)
 
 char* asm_get_instruction(ASM* asm, int64 opcode)
 {
-    // TODO
     // getting the opcode size
     byte opcode_size = size_of(opcode);
-
-    return 0;
+    if (opcode_size > TBL_F(rows_number, asm->instructions) + TBL_F(columns_number, asm->instructions))
+        // opcode too big for this instruction set; error
+        return "ERR";
+    // TODO
+    // row is most significant half of opcode, column the less significant half
+    return TBL_F(get_row, asm->instructions, );
 }
 
 int64 asm_get_opcode(ASM* asm, char* instruction)
