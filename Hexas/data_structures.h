@@ -1,7 +1,5 @@
 #pragma once
 #include "str.h"
-#include "linkedlist.h"
-#include "table.h"
 
 typedef unsigned char byte;
 typedef short int16;
@@ -41,6 +39,8 @@ typedef struct
 size_t size_of(size_t n);
 // more reliable than size_of but slower.
 size_t size_of_pow(size_t n);
+// returns a mask with given bit width
+size_t mask(size_t bit_width);
 
 // prints any number in binary.
 void bprint(size_t n);

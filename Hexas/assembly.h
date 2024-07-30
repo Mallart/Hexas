@@ -1,5 +1,6 @@
 #pragma once
 #include "data_structures.h"
+#include "table.h"
 #include "files.h"
 
 // TODO: assembly data structure

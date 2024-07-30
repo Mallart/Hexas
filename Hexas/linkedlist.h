@@ -1,6 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include "str.h"
+#include "data_structures.h"
 
 // Linked list function
 #define LINKED_LIST_FUNC(func, ...) linked_list_##func(__VA_ARGS__)

@@ -15,7 +15,7 @@ typedef struct
 table* TABLE_FUNC(new);
 table* TABLE_FUNC(add_row, table* t, linked_list* _ll);
 linked_list* TABLE_FUNC(get_row, table* t, size_t index);
-
+void* TABLE_FUNC(get, table* t, LPOINT coordinates);
 void TABLE_FUNC(print, table* t);
 void TABLE_FUNC(print_row, table* t, size_t index);
 // in number of chars

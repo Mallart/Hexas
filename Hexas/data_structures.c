@@ -15,6 +15,13 @@ size_t size_of_pow(size_t n)
 	return n ? i + 1 : 0;
 }
 
+size_t mask(size_t bit_width)
+{
+	size_t _mask = 0;
+	for (size_t i = 0; i < bit_width; ++i, _mask = (_mask << 1) + 1);
+	return _mask;
+}
+
 void bprint(size_t n)
 {
 	size_t i = sizeof(n) * 8 - 2;

@@ -19,12 +19,8 @@ void tests()
 {
 	ASM test_asm = asm_parse_csv("./asm_example.csv");
 	asm_display(&test_asm);
-	printf("0x%2x", asm_get_opcode(&test_asm, "PAUSE"));
-	printf("\nsize of %i: %llu", 0b001100110011, size_of(819));
-	bprint(819);
-	size_t size_test = 0b11000100010001000;
-	printf("\nsize of %llu: %llu", size_test, size_of(size_test));
-	printf("\nsize of %i: %llu", 0b10010, size_of(0b10010));
+	printf("0x%2x\n", asm_get_opcode(&test_asm, "PAUSE"));
+	printf("Trying to get PAUSE instruction: %s\n", asm_get_instruction(&test_asm, asm_get_opcode(&test_asm, "PAUSE")));
 	exit(0);
 }
 #endif

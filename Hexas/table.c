@@ -18,6 +18,11 @@ linked_list* TABLE_FUNC(get_row, table* t, size_t index)
 	return (linked_list*)LINKED_LIST_FUNC(get, t->rows, index);
 }
 
+void* TABLE_FUNC(get, table* t, LPOINT coordinates)
+{
+	return LL_F(get, ((ll*)TBL_F(get_row, t, coordinates.y)), coordinates.x);
+}
+
 void TABLE_FUNC(print, table* t)
 {
 	printf("\n");

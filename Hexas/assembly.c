@@ -44,7 +44,11 @@ char* asm_get_instruction(ASM* asm, int64 opcode)
         return "ERR";
     // TODO
     // row is most significant half of opcode, column the less significant half
-    return TBL_F(get_row, asm->instructions, );
+    size_t opcode_width = TBL_F(rows_number, asm->instructions);
+    size_t 
+        x = opcode & (mask(size_of(opcode_width))),
+        y = (opcode & (mask(size_of(opcode_width)) << size_of(opcode_width))) >> size_of(opcode_width);
+    return ((dstr*)TBL_F(get, asm->instructions, (LPOINT){x, y}))->str;
 }
 
 int64 asm_get_opcode(ASM* asm, char* instruction)
