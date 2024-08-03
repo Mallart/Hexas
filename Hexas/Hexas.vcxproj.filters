@@ -25,6 +25,9 @@
     <Filter Include="Fichiers d%27en-tête\compilation">
       <UniqueIdentifier>{4fe7ca82-659e-4f5e-81da-d664282f40bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\compilation\formats">
+      <UniqueIdentifier>{5470c202-40a2-4bc7-9ed8-08547848c9e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">
@@ -57,6 +60,9 @@
     <ClInclude Include="parser.h">
       <Filter>Fichiers d%27en-tête\compilation</Filter>
     </ClInclude>
+    <ClInclude Include="formats.h">
+      <Filter>Fichiers d%27en-tête\compilation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="linkedlist.c">
@@ -81,6 +87,18 @@
       <Filter>Fichiers sources\compilation</Filter>
     </ClCompile>
     <ClCompile Include="data_structures.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="elf.c">
+      <Filter>Fichiers sources\compilation\formats</Filter>
+    </ClCompile>
+    <ClCompile Include="pe.c">
+      <Filter>Fichiers sources\compilation\formats</Filter>
+    </ClCompile>
+    <ClCompile Include="intel_hex.c">
+      <Filter>Fichiers sources\compilation\formats</Filter>
+    </ClCompile>
+    <ClCompile Include="mach-o.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,13 +18,14 @@ Let's see how it goes ! - edit - I did program some things
 The features I plan to add are:
 	- Built-in compiler
 	- Code editor with auto completion
-	- Real time Hex / Binary visualizer based on the assembly code
+	- Real time Hex / Binary visualizer based on the assembly code (can be turned on or off depending on
+		the machine performances)
 	- Auto completion depending on the assembly you're using
 	- Detection of assembly languages usable on the coding platform
-		- For instance, if you're using a WIN32 platform, you'll have MASM used by default.
+		- For instance, if you're using a WIN32 platform, you'll have MASM (Microsoft Macro Assembler) used by default.
 		- That doesn't mean you can't change the assembly you want to use.
 		- That feature helps you compile on whatever platform you want to use, even if that's not the same as
-			the platform you code on.
+			the platform you program on.
 	- Mutli purpose
 		- You can use the IDE to code on the assembly you want; you can add or remove assemblies if you want to.
 		- Each assembly available in the IDE is a CSV file defining an instruction set.

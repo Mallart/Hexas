@@ -1,9 +1,7 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include "data_structures.h"
+
 // general operator to create an instance of a struct of any type
 #define new(type) type##_FUNC(new)
 #define new(type, ...) type##_FUNC(new, __VA_ARGS__)
@@ -55,3 +53,7 @@ char* hex_to_bin(char* bin_data, size_t count);
 char* str_trim(char* str);
 
 unsigned char str_equals(char* str1, char* str2);
+// concatenates up to 4 single-bytes characters in a single number
+uint64 str_sequence(char* str);
+// returns the number of a character's occurences in a given string.
+size_t str_count_char(char* str, size_t length, char c);

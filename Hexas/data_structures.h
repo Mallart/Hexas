@@ -1,15 +1,28 @@
 #pragma once
-#include "str.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
 typedef unsigned char byte;
+typedef unsigned char BYTE;
+typedef unsigned char uint8;
 typedef short int16;
 typedef int int32;
 #ifdef _WIN32
 typedef long long int64;
+typedef unsigned long long uint64;
+typedef unsigned long long QWORD;
 #else
 typedef long int64;
+typedef unsigned long uint64;
+typedef unsigned long QWORD;
 #endif
-
+typedef unsigned short WORD;
+typedef unsigned short uint16;
+typedef unsigned int DWORD;
+typedef unsigned int uint32;
 
 typedef struct
 {

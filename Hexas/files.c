@@ -27,3 +27,8 @@ size_t file_size(FILE* stream)
     fseek(stream, _cur, SEEK_SET);
     return size;
 }
+
+void append_bytes(FILE* stream, char* buffer, size_t length)
+{
+    fwrite(buffer, sizeof(buffer[0]), length, stream);
+}

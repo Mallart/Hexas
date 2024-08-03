@@ -5,3 +5,15 @@ ASSEMBLY:
 - An assembly descriptor file is an extended CSV file storing the informations about an assembly's 
   instruction set.
 - Each assembly descriptor file should be named after the assembly's name it describes.
+
+Edit (03/08/24):
+Several assemblies can be supported (their opcodes), but their specific syntaxes and the way they are assembled
+(compiled) cannot without a large data file.
+Before I start adding features for specific compilation I plan on adding these compilation processes and formats:
+- Portable Executable
+- Executable and Linkable Format
+- Mach-O
+- Intel HEX
+Then I'll be adding features to support any custom compiled format.
+At the moment, I'm working on the PE format, and I'm willing to hardcode the behavior of my compiler for
+each of these formats.

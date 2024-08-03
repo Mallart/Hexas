@@ -220,3 +220,21 @@ unsigned char str_equals(char* str1, char* str2)
 {
 	return !strcmp(str1, str2);
 }
+
+uint64 str_sequence(char* str)
+{
+	size_t _size = strlen(str);
+	uint64 num = 0;
+	for (char i = 0; i < _size && i < 4; ++i)
+		num += (str[i] << i * 8);
+	return num;
+}
+
+size_t str_count_char(char* str, size_t length, char c)
+{
+	size_t count = 0;
+	for (size_t i = 0; i < length; ++i)
+		if (str[i] == c)
+			count++;
+	return count;
+}
