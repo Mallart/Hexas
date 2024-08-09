@@ -50,15 +50,11 @@ void str_ptr_remove_char(char* str, char c)
 char** str_split(char* str, char delimiter)
 {
 	size_t _strlen = strlen(str);
-	size_t n_delims = 0;
-	for (size_t i = 0; i < _strlen; ++i)
-		if (str[i] == delimiter)
-			n_delims++;
+	size_t n_delims = str_count_char(str, _strlen, delimiter);
 	char** _array = malloc(sizeof(char*) * (n_delims + 2));
 	if (!_array)
 		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
-	size_t alloc_number = 0;
-	for (size_t i = 0; alloc_number < n_delims + 1; i = str_find_char(str, delimiter) + 1, alloc_number++, str += i)
+	for (size_t i = 0, alloc_number = 0; alloc_number < n_delims + 1; i = str_find_char(str, delimiter) + 1, alloc_number++, str += i)
 	{
 		size_t str_size = str_find_char(str, delimiter);
 		_array[alloc_number] = malloc(sizeof(char) * (str_size + 1));

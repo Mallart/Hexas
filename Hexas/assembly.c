@@ -1,5 +1,4 @@
 #include "assembly.h"
-#define DEBUG
 
 ASM asm_parse_csv(char* path)
 {
@@ -23,20 +22,14 @@ ASM asm_parse_csv(char* path)
         for (byte col = 0; col < asm_size; col++)
         {
             char* _str = str_trim(csv_line[col]);
-#ifdef DEBUG
-            printf("parsing: %s\n", _str);
-#endif
             byte n_subelements = str_count_char(_str, strlen(_str), ';');
             if (n_subelements)
             {
-                char* cell = str_split(_str, ';');
-                for (byte cell_element = 0; cell_element < n_subelements; cell_element++)
+                char** cell = str_split(_str, ';');
+                for (byte cell_element = 0; cell_element <= n_subelements; cell_element++)
                 {
                     char* content = str_trim(cell[cell_element]);
                     // if it's the first element, it's an instruction
-#ifdef DEBUG
-                    printf("Length of parsed string: %i\n", strlen(content));
-#endif
                     if (!cell_element)
                         linked_list_append(ll, strlen(content) ? str_to_dstr(content) : new(DSTR, "\0"));
                     else
@@ -48,9 +41,6 @@ ASM asm_parse_csv(char* path)
             }
             else
             {
-#ifdef DEBUG
-                printf("Length of parsed string: %i\n", strlen(_str));
-#endif
                 linked_list_append(ll, strlen(_str) ? str_to_dstr(_str) : new(DSTR, "\0"));
                 // no registry detected, add an empty cell
                 linked_list_append(reg_line, new(DSTR, "\0"));
