@@ -57,3 +57,8 @@ The features I plan to add are:
 
 EDIT (25/07/2024):
 	I chose to code all the GUI using SDL, to keep my editor cross-platform and lightweight.
+
+EDIT (09/08/2024):
+	Hexas is the compiler's name and Hexas IDE the name of the software embedding SDL in order to
+	provide a graphical user interface (GUI) using it. I separated the two projects, so I can improve
+	the compiler stability, efficency and coverage separately from the IDE's design and performances.
