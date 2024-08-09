@@ -76,7 +76,7 @@ char* asm_get_instruction(ASM* asm, uint64 opcode)
     return ((dstr*)TBL_F(get, asm->instructions, (LPOINT){x, y}))->str;
 }
 
-uint64 asm_get_registry(ASM* asm, uint64 regcode)
+char* asm_get_registry(ASM* asm, uint64 regcode)
 {
     // getting the opcode size
     byte opcode_size = size_of(regcode);

@@ -43,7 +43,7 @@ LPOINT asm_get_max_index(ASM* asm);
 // uint64 it is the largest type available, so the opcode can be translated to whatever instruction up to x64 systems.
 char* asm_get_instruction(ASM* asm, uint64 opcode);
 // returns the registry at the given number.
-uint64 asm_get_registry(ASM* asm, uint64 regcode);
+char* asm_get_registry(ASM* asm, uint64 regcode);
 // Will look for an instruction with the same name then return the opcode.
 uint64 asm_get_opcode(ASM* asm, char* instruction);
 // Will look for a registry with the same name then return that identification code.
