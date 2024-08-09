@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\gui">
-      <UniqueIdentifier>{1ef7d3cc-4e78-439b-a257-913defb68705}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\gui">
       <UniqueIdentifier>{32f65bea-2138-4038-ac09-b88087eea618}</UniqueIdentifier>
     </Filter>
@@ -27,6 +24,9 @@
     </Filter>
     <Filter Include="Fichiers sources\compilation\formats">
       <UniqueIdentifier>{5470c202-40a2-4bc7-9ed8-08547848c9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\debug">
+      <UniqueIdentifier>{024b3d2b-3618-4a22-98f7-5e0bb68f449a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,14 +54,14 @@
     <ClInclude Include="files.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="gui.h">
-      <Filter>Fichiers d%27en-tête\gui</Filter>
-    </ClInclude>
     <ClInclude Include="parser.h">
       <Filter>Fichiers d%27en-tête\compilation</Filter>
     </ClInclude>
     <ClInclude Include="formats.h">
       <Filter>Fichiers d%27en-tête\compilation</Filter>
+    </ClInclude>
+    <ClInclude Include="h_errors.h">
+      <Filter>Fichiers d%27en-tête\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

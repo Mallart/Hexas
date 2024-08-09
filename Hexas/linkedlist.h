@@ -12,7 +12,7 @@ typedef struct ll
 	void* content;
 	struct ll* previous;
 	struct ll* next;
-} linked_element, linked_list, le, ll;
+} linked_element, linked_list, le, ll, LINKED_LIST;
 
 // creates a new linked list
 linked_list* LINKED_LIST_FUNC(new);

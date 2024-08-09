@@ -1,4 +1,5 @@
 #include "assembly.h"
+#define DEBUG
 
 ASM asm_parse_csv(char* path)
 {
@@ -12,21 +13,55 @@ ASM asm_parse_csv(char* path)
     char** lines = str_split(file_content, '\n');
     byte asm_size = str_table_size(lines);
     // parsing a line of CSV
-    table* asm_table = table_new();
+    table* asm_table = new(TABLE);
+    table* reg_table = new(TABLE);
     for (byte row = 0; row < asm_size; row++)
     {
-        linked_list* ll = linked_list_new();
-        char** csv_line = str_split(lines[row], ';');
+        linked_list* ll = new(LINKED_LIST);
+        linked_list* reg_line = new(LINKED_LIST);
+        char** csv_line = str_split(lines[row], ',');
         for (byte col = 0; col < asm_size; col++)
         {
             char* _str = str_trim(csv_line[col]);
-            linked_list_append(ll, strlen(_str) ? str_to_dstr(_str) : new(DSTR, "\0"));
+#ifdef DEBUG
+            printf("parsing: %s\n", _str);
+#endif
+            byte n_subelements = str_count_char(_str, strlen(_str), ';');
+            if (n_subelements)
+            {
+                char* cell = str_split(_str, ';');
+                for (byte cell_element = 0; cell_element < n_subelements; cell_element++)
+                {
+                    char* content = str_trim(cell[cell_element]);
+                    // if it's the first element, it's an instruction
+#ifdef DEBUG
+                    printf("Length of parsed string: %i\n", strlen(content));
+#endif
+                    if (!cell_element)
+                        linked_list_append(ll, strlen(content) ? str_to_dstr(content) : new(DSTR, "\0"));
+                    else
+                        // it's a registry, put it in the registry table. No need to put an empty instruction there,
+                        // it has already been added (index 0).
+                        linked_list_append(reg_line, strlen(content) ? str_to_dstr(content) : new(DSTR, "\0"));
+                }
+                free(cell);
+            }
+            else
+            {
+#ifdef DEBUG
+                printf("Length of parsed string: %i\n", strlen(_str));
+#endif
+                linked_list_append(ll, strlen(_str) ? str_to_dstr(_str) : new(DSTR, "\0"));
+                // no registry detected, add an empty cell
+                linked_list_append(reg_line, new(DSTR, "\0"));
+            }
         }
         delete_str_table(csv_line);
         table_add_row(asm_table, ll);
+        table_add_row(reg_table, reg_line);
     }
 
-    return (ASM){ .name = str_to_dstr(asm_name), .size = asm_size, .instructions = asm_table };
+    return (ASM){ .name = str_to_dstr(asm_name), .size = asm_size, .instructions = asm_table, .registries = reg_table };
 }
 
 LPOINT asm_get_max_index(ASM* asm)
@@ -75,5 +110,8 @@ void asm_display(ASM* asm)
     printf("Architecture: \t%i bits (x%i)\n", asm->size, asm->size);
     printf("Instructions set:\n");
     table_print(asm->instructions);
+    printf("---------------------------\n");
+    printf("Registries set:\n");
+    table_print(asm->registries);
     printf("---------------------------\n");
 }

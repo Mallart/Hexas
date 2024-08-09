@@ -3,8 +3,10 @@
 table* TABLE_FUNC(new)
 {
 	table* t = malloc(sizeof(table));
-	if(t)
+	if (t)
 		t->rows = new(LINKED_LIST);
+	else
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE)
 	return t;
 }
 
@@ -26,6 +28,11 @@ void* TABLE_FUNC(get, table* t, LPOINT coordinates)
 void TABLE_FUNC(print, table* t)
 {
 	printf("\n");
+	if (TABLE_FUNC(empty, t))
+	{
+		printf("The given table is empty.\n");
+		return;
+	}
 	// current row
 	le* _cr = LL_F(begin, t->rows);
 	size_t max_row_size = TBL_F(width, t) + (4 * (TBL_F(columns_number, t) - 1));
@@ -52,11 +59,9 @@ void TABLE_FUNC(print_row, table* t, size_t index)
 	printf("| ");
 	for (size_t i = 0; i < ll_size; _cc = _cc->next, i++)
 	{
+		dstr_print(_cc->content, 0);
 		char* s = str_trim(((dstr*)_cc->content)->str);
-		printf(s);
-		size_t _len = strlen(s);
-		if(_len)
-			free(s);
+		size_t _len = dstr_len(_cc->content);
 		for(size_t ii = 0; ii < TABLE_FUNC(max_column_width, t, i) - _len; ++ii)
 				printf(" ");
 		printf(" | ");
@@ -106,6 +111,11 @@ size_t TABLE_FUNC(columns_number, table* t)
 size_t TABLE_FUNC(rows_number, table* t)
 {
 	return LL_F(size, t->rows);
+}
+
+byte TABLE_FUNC(empty, table* t)
+{
+	return !(t && t->rows && t->rows->content);
 }
 
 void TABLE_FUNC(free, table* t)

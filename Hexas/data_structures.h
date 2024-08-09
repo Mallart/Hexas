@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "h_errors.h"
 
 typedef unsigned char byte;
 typedef unsigned char BYTE;

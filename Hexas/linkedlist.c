@@ -3,7 +3,9 @@
 linked_list* LINKED_LIST_FUNC(new)
 {
 	linked_list* ll = malloc(sizeof(linked_list));
-	ll->content = 0,
+	if (!ll)
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
+	ll->content = 0;
 	ll->next = 0;
 	ll->previous = 0;
 	return ll;
@@ -18,6 +20,8 @@ void LINKED_LIST_FUNC(add, linked_list* list, void* element)
 		return;
 	}
 	list->next = malloc(sizeof(linked_list));
+	if (!list->next)
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
 	list->next->content = element;
 	list->next->next = 0;
 	list->next->previous = list;

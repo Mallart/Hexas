@@ -2,10 +2,13 @@
 
 dstr* DSTR_FUNC(new, char* content)
 {
-	dstr* r = malloc(sizeof(dstr));
-	if (!r)
-		return 0;
-	r->str = (char*)content;
+	size_t _len = strlen(content);
+	char* _content = malloc(sizeof(char) * (_len + 1));
+	if (!_content)
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
+	str_cpy(_content, content);
+	_content[_len] = 0;
+	return str_to_dstr(_content);
 }
 
 void DSTR_FUNC(set, dstr* str, char* content)
@@ -24,7 +27,7 @@ char* str_remove_char(char* str, char c)
 	size_t len = strlen(str);
 	char* _s = malloc(sizeof(char) * (len + 1));
 	if (!_s)
-		return 0;
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
 	char found = 0;
 	size_t i = 0;
 	for (; i < len; ++i)
@@ -53,12 +56,14 @@ char** str_split(char* str, char delimiter)
 			n_delims++;
 	char** _array = malloc(sizeof(char*) * (n_delims + 2));
 	if (!_array)
-		return 0;
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
 	size_t alloc_number = 0;
 	for (size_t i = 0; alloc_number < n_delims + 1; i = str_find_char(str, delimiter) + 1, alloc_number++, str += i)
 	{
 		size_t str_size = str_find_char(str, delimiter);
 		_array[alloc_number] = malloc(sizeof(char) * (str_size + 1));
+		if (!_array[alloc_number])
+			throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
 		for (size_t ii = 0; ii < str_size; ++ii)
 			_array[alloc_number][ii] = str[ii];
 		_array[alloc_number][str_size] = 0;
@@ -77,7 +82,7 @@ size_t str_table_size(char** strtable)
 void delete_str_table(char** strtable)
 {
 	if (!strtable)
-		return;
+		throw(MEMORY_DEALLOCATION_EMPTY_SPACE);
 	for (size_t i = 0; i < str_table_size(strtable); ++i)
 		if (strtable[i])
 			free(strtable[i]);
@@ -90,14 +95,20 @@ dstr* str_to_dstr(char* str)
 	dstr* d = malloc(sizeof(dstr));
 	if (!d)
 		return 0;
-	size_t _len = strlen(str);
-	d->str = malloc(sizeof(char) * _len ? _len : 1);
-	if (!d->str)
-		return 0;
-	if(_len)
-		strcpy(d->str, str);
+	size_t _len;
+	if (str)
+		_len = strlen(str);
 	else
-		strcpy(d->str, "\0");
+		_len = 1;
+	d->str = malloc(sizeof(char) * (_len + 1));
+	if (!d->str)
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
+	if(_len)
+		if(_len > 1 && str)
+			str_cpy(d->str, str);
+		else
+			d->str[0] = 0;
+	d->str[_len] = 0;
 	free(str);
 	return d;
 }
@@ -145,7 +156,7 @@ char* byte_bin_to_hex(unsigned char byte)
 	char lsd = byte & 0xf;
 	char* hex = malloc(sizeof(char) * 3);
 	if (!hex)
-		return 0;
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
 	hex[0] = msd < 10 ? msd + '0' : msd + 'A' - 10;
 	hex[1] = lsd < 10 ? lsd + '0' : lsd + 'A' - 10;
 	hex[2] = 0;
@@ -164,7 +175,7 @@ char* bin_to_hex(char* bin_data, size_t count)
 	// each byte is two hex characters
 	char* s = malloc(sizeof(char) * (count * 2 + 1));
 	if (!s)
-		return 0;
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
 	// TODO
 	for (size_t i = 0; i < count * 2; i+=2)
 	{
@@ -207,8 +218,8 @@ char* str_trim(char* str)
 	str += begin;
 	char* _str = malloc(sizeof(char) * (strlen(str) + 1));
 	if (!_str)
-		return str;
-	strcpy(_str, str);
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
+	str_cpy(_str, str);
 	// TODO:make this work for the end of the string
 	size_t end = strlen(_str) - 1;
 	for (; end > begin && prv_is_blank(_str[end]); --end);
@@ -225,7 +236,7 @@ uint64 str_sequence(char* str)
 {
 	size_t _size = strlen(str);
 	uint64 num = 0;
-	for (char i = 0; i < _size && i < 4; ++i)
+	for (byte i = 0; i < _size && i < 4; ++i)
 		num += (str[i] << i * 8);
 	return num;
 }
@@ -237,4 +248,55 @@ size_t str_count_char(char* str, size_t length, char c)
 		if (str[i] == c)
 			count++;
 	return count;
+}
+
+void dstr_print(dstr* _str, FILE* stream)
+{
+	size_t len = strlen(_str->str);
+	char* _cstr = malloc(sizeof(char) * (dstr_len(_str) + 1));
+	if (!_cstr)
+		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
+	if (!_str)
+		throw(MEMORY_DEREFERENCED_POINTER_USED);
+	if(!_str->str)
+		throw(MEMORY_DEREFERENCED_POINTER_USED);
+	size_t i = 0;
+	for (; i < len; i++)
+		if (_str->str[i])
+			_cstr[i] = _str->str[i];
+		else
+			break;
+	_cstr[min(len, i)] = 0;
+	if (!stream)
+		printf("%s", _cstr);
+	else
+		fwrite(_cstr, sizeof(char), len, stream);
+	free(_cstr);
+}
+
+size_t dstr_len(dstr* _str)
+{
+	if (!_str)
+		throw(MEMORY_DEREFERENCED_POINTER_USED);
+	if (!_str->str)
+		throw(MEMORY_DEREFERENCED_POINTER_USED);
+	return strlen(_str->str);
+}
+
+void str_cpy(char* dest, char* source)
+{
+	if (!(dest && source))
+		throw(MEMORY_DEREFERENCED_POINTER_USED);
+	size_t i = 0;
+	for (; source[i]; ++i)
+		dest[i] = source[i];
+	dest[i] = 0;
+}
+
+void mem_cpy(char* dest, char* source, size_t n_bytes)
+{
+	if (!(dest && source))
+		throw(MEMORY_DEREFERENCED_POINTER_USED);
+	for (size_t i = 0; i < n_bytes; ++i)
+		dest[i] = source[i];
 }

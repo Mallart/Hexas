@@ -10,7 +10,7 @@
 typedef struct
 {
 	linked_list* rows;
-} table;
+} table, TABLE;
 
 table* TABLE_FUNC(new);
 table* TABLE_FUNC(add_row, table* t, linked_list* _ll);
@@ -24,6 +24,8 @@ size_t TABLE_FUNC(max_column_width, table* t, size_t colmun_index);
 size_t TABLE_FUNC(width, table* t);
 size_t TABLE_FUNC(columns_number, table* t);
 size_t TABLE_FUNC(rows_number, table* t);
+// Returns 1 if the table is empty (not instantiated), 0 otherwise.
+byte TABLE_FUNC(empty, table* t);
 void TABLE_FUNC(free, table* t);
 
 // returns all the table content as a single linked list, iterable.

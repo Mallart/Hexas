@@ -57,3 +57,11 @@ unsigned char str_equals(char* str1, char* str2);
 uint64 str_sequence(char* str);
 // returns the number of a character's occurences in a given string.
 size_t str_count_char(char* str, size_t length, char c);
+// prints a dstr in the given stream. if "stream" is 0, printf is called 
+// (even though if you can put stdout as stream) to print it.
+void dstr_print(dstr* _str, FILE* stream);
+// returns the length of the string wrapped by the given dstr.
+size_t dstr_len(dstr* _str);
+
+void str_cpy(char* dest, char* source);
+void mem_cpy(char* dest, char* source, size_t n_bytes);
