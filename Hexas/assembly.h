@@ -40,7 +40,11 @@ void asm_display(ASM* asm);
 LPOINT asm_get_max_index(ASM* asm);
 // returns the instruction at the given number.
 // can be used to disassemble.
-// it is the largest type available, so the opcode can be translated to whatever instruction up to x64 systems.
-char* asm_get_instruction(ASM* asm, int64 opcode);
+// uint64 it is the largest type available, so the opcode can be translated to whatever instruction up to x64 systems.
+char* asm_get_instruction(ASM* asm, uint64 opcode);
+// returns the registry at the given number.
+uint64 asm_get_registry(ASM* asm, uint64 regcode);
 // Will look for an instruction with the same name then return the opcode.
-int64 asm_get_opcode(ASM* asm, char* instruction);
+uint64 asm_get_opcode(ASM* asm, char* instruction);
+// Will look for a registry with the same name then return that identification code.
+uint64 asm_get_regcode(ASM* asm, char* registry);

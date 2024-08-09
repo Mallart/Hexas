@@ -28,6 +28,7 @@ void tests()
 	asm_display(&test_asm);
 	printf("0x%2x\n", asm_get_opcode(&test_asm, "PAUSE"));
 	printf("Trying to get PAUSE instruction: %s\n", asm_get_instruction(&test_asm, asm_get_opcode(&test_asm, "PAUSE")));
+	printf("Trying to get RFX registry: %s\n", asm_get_registry(&test_asm, asm_get_regcode(&test_asm, "RFX")));
 	exit(0);
 }
 #endif

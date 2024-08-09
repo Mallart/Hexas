@@ -60,7 +60,7 @@ LPOINT asm_get_max_index(ASM* asm)
 }
 
 
-char* asm_get_instruction(ASM* asm, int64 opcode)
+char* asm_get_instruction(ASM* asm, uint64 opcode)
 {
     // getting the opcode size
     byte opcode_size = size_of(opcode);
@@ -76,7 +76,23 @@ char* asm_get_instruction(ASM* asm, int64 opcode)
     return ((dstr*)TBL_F(get, asm->instructions, (LPOINT){x, y}))->str;
 }
 
-int64 asm_get_opcode(ASM* asm, char* instruction)
+uint64 asm_get_registry(ASM* asm, uint64 regcode)
+{
+    // getting the opcode size
+    byte opcode_size = size_of(regcode);
+    if (opcode_size > TBL_F(rows_number, asm->registries) + TBL_F(columns_number, asm->registries))
+        // opcode too big for this instruction set; error
+        return "ERR";
+    // TODO
+    // row is most significant half of opcode, column the less significant half
+    size_t opcode_width = TBL_F(rows_number, asm->registries);
+    size_t
+        x = regcode & (mask(size_of(opcode_width))),
+        y = (regcode & (mask(size_of(opcode_width)) << size_of(opcode_width))) >> size_of(opcode_width);
+    return ((dstr*)TBL_F(get, asm->registries, (LPOINT) { x, y }))->str;
+}
+
+uint64 asm_get_opcode(ASM* asm, char* instruction)
 {
     size_t opcode;
     ll* row = LL_F(begin, asm->instructions->rows);
@@ -87,6 +103,23 @@ int64 asm_get_opcode(ASM* asm, char* instruction)
         {
             opcode = irow << size_of(TBL_F(rows_number, asm->instructions)) | icolumn;
             if (str_equals(instruction, ((dstr*)LL_F(get, column, icolumn))->str))
+                return opcode;
+        }
+    }
+    return 0;
+}
+
+uint64 asm_get_regcode(ASM* asm, char* registry)
+{
+    size_t opcode;
+    ll* row = LL_F(begin, asm->registries->rows);
+    for (size_t irow = 0; irow < LL_F(size, row); ++irow, row = row->next)
+    {
+        ll* column = row->content;
+        for (size_t icolumn = 0; icolumn < LL_F(size, column); ++icolumn, column = column->next)
+        {
+            opcode = irow << size_of(TBL_F(rows_number, asm->registries)) | icolumn;
+            if (str_equals(registry, ((dstr*)LL_F(get, column, icolumn))->str))
                 return opcode;
         }
     }

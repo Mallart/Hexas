@@ -12,4 +12,12 @@ typedef enum
 	MEMORY_DEREFERENCED_POINTER_USED,
 	// when accessing an offset from a pointer that's not allocated by the program.
 	MEMORY_OUT_OF_BOUNDS,
+
+	// Now for the compiler errors occuring during the compilation process itself;
+	
+	// Invalid operator used in assembly code.
+	CODE_INVALID_OPERATOR,
+	// Invalid instruction used in assembly code. Try changing assembly reference ?
+	CODE_UNKOWN_INSTRUCTION,
+
 } HEXAS_COMPILER_ERROR;

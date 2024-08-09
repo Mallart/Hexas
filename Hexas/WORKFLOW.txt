@@ -17,3 +17,7 @@ Before I start adding features for specific compilation I plan on adding these c
 Then I'll be adding features to support any custom compiled format.
 At the moment, I'm working on the PE format, and I'm willing to hardcode the behavior of my compiler for
 each of these formats.
+
+Edit (09/08/24):
+For practical reasons, I decided that this project will only be the compiler of Hexas IDE.
+I decided to name this compiler Hexas.
