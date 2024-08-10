@@ -3,6 +3,17 @@
 #include "table.h"
 #include "files.h"
 
+// What separates two entries / cells
+#define HEXAS_ENTRY_SEPARATOR ','
+// What enables several tables to overlap in a single CSV ("3D CSV")
+#define HEXAS_KEYWORD_SEPARATOR ';'
+// What enables custom word sizing (what makes the compiler write "0xBF00" instead of "0xBF")
+#define HEXAS_WORD_SIZE_INDICATOR ':'
+// Where the name is located related to the size indicator.
+#define HEXAS_CELL_NAME 0
+// Where the size is located related to the size indicator.
+#define HEXAS_CELL_SIZE 1
+
 // Note on assembly files:
 // It's really important to have a table with fixed width and length, as it's what's used to read and retrieve
 // opcodes.
@@ -21,8 +32,31 @@
 // on some assembly languages, the "flag registry" is just a registry.
 // And yes, that, in some way, enables "3D CSV".
 
+// I recently came across the fact that some opcodes are smaller than others. For this kind of assemblers,
+// I added some syntactic sugar to my "CSV" (if we still can call it like that) parsing to tell the parser
+// the exact size (IN BITS, NOT IN BYTES) of any code (registers, instructions, flags...).
+// In order to do that, simply add "XXX:n", where 'n' is the word size in bits, ':' is a constant delimiter
+// (in other words, don't change that), and "XXX" is a the word name (variable in length, not limited to
+// only 3 characters. Saying that just in case you want to add an instruction whose name is
+// PLZCANTHECPUPOPONTHESTACKWITHOUTCRASHINGAGAIN. Though it will make your code harder to read and bigger.
+// Just saying. You do you).
+
+// A "hword" is either an instruction, a register or a flag in an assembly table.
+typedef struct HEXAS_WORD
+{
+	// The word name. Could be an instruction's name, a register name...
+	// Anything as long as it's the same as in the assembly table and in parsed assembly code.
+	dstr* name;
+	// The word size. Some words are larger than others, and need to be filled with null bits.
+	// The size is in bits, not in bytes.
+	// If 0, will use default size to write the code (just enough for it to fit).
+	byte size;
+} hword, HWORD, HEXAS_WORD, HexasWord, HWord;
+
+typedef HEXAS_WORD* LPHWORD;
+
 // Assembly is a data structure containing relevant infos about an assembly.
-typedef struct
+typedef struct HEXAS_ASSEMBLY
 {
 	// assembly name, should be the first cell in first line
 	dstr* name;
@@ -37,6 +71,8 @@ typedef struct
 } assembly, Assembly, ASSEMBLY, _asm_, ASM;
 
 ASM asm_parse_csv(char* path);
+// Constructs a HWORD from the content of a cell.
+LPHWORD asm_build_hword(char* cell_content);
 void asm_display(ASM* asm);
 // returns a two-dimensional point with max possible opcode coordinates for rows and columns.
 LPOINT asm_get_max_index(ASM* asm);
@@ -50,3 +86,6 @@ char* asm_get_registry(ASM* asm, uint64 regcode);
 uint64 asm_get_opcode(ASM* asm, char* instruction);
 // Will look for a registry with the same name then return that identification code.
 uint64 asm_get_regcode(ASM* asm, char* registry);
+// Display an assembly table.
+void asm_table_display(table* t);
+void asm_table_display_line(table* t, uint64 index);
