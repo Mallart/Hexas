@@ -17,7 +17,7 @@
 // there's a special character, ';' (semicolon) than enables several words to be in the same cell.
 // Be careful though, the first word (the one before the first semicolon in one "cell", a "cell" being
 // the space between two commas) must ALWAYS be the assembly instruction. Then can be appended man other
-// elements, the first one being the assembly instruction, then registry, then flag. Note that
+// elements, the first one being the assembly instruction, then registry, then keyword. Note that
 // on some assembly languages, the "flag registry" is just a registry.
 // And yes, that, in some way, enables "3D CSV".
 
@@ -32,6 +32,8 @@ typedef struct
 	table* instructions;
 	// linked table of all the assembly's registries and flags.
 	table* registries;
+	// linked table of all the assembly's keywords (WORD, DWORD...)
+	table* keywords;
 } assembly, Assembly, ASSEMBLY, _asm_, ASM;
 
 ASM asm_parse_csv(char* path);

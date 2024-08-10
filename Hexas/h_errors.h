@@ -13,6 +13,13 @@ typedef enum
 	// when accessing an offset from a pointer that's not allocated by the program.
 	MEMORY_OUT_OF_BOUNDS,
 
+	// About the executable and arguments errors,
+
+	// When an argument isn't recognized by the program
+	COMPILER_UNKNOWN_ARGUMENT,
+	// When the minimum argument count required isn't met
+	COMPILER_NOT_ENOUGH_ARGUMENTS,
+
 	// Now for the compiler errors occuring during the compilation process itself;
 	
 	// Invalid operator used in assembly code.
