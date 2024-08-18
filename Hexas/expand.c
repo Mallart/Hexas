@@ -22,20 +22,20 @@ char* exp_expand(expand* exp)
 		// add called arguments first
 		for (byte i = 0; i < temp_exp->n_args; ++i)
 		{
-			next_args[i + temp_nargs] = malloc(sizeof(char) * strlen(args[i]));
-			if (!next_args[i + temp_nargs])
+			next_args[i] = malloc(sizeof(char) * strlen(args[i]));
+			if (!next_args[i])
 				throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
-			next_args[i + temp_nargs] = str_cpy(next_args[i + temp_nargs], args[i], sizeof(char) * strlen(args[i]));
+			next_args[i] = str_cpy(next_args[i], args[i], sizeof(char) * strlen(args[i]));
 		}
 
 		// append calling macro's args
 		for (byte i = 0; i < temp_nargs; ++i)
 		{
 			char* arg = temp_args[i];
-			next_args[i] = malloc(sizeof(char) * strlen(arg));
-			if (!next_args[i])
+			next_args[i + temp_exp->n_args] = malloc(sizeof(char) * strlen(arg));
+			if (!next_args[i + temp_exp->n_args])
 				throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
-			next_args[i] = str_cpy(next_args[i], temp_args[i], sizeof(char) * strlen(temp_args[i]));
+			next_args[i + temp_exp->n_args] = str_cpy(next_args[i + temp_exp->n_args], temp_args[i], sizeof(char) * strlen(temp_args[i]));
 		}
 		temp_exp->args = next_args;
 		temp_exp->n_args += temp_nargs;

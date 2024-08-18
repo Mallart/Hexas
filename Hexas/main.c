@@ -36,13 +36,20 @@ void macros_tests()
 	expand q_test =
 	{
 		.reexpand = 0,
-		.result = "This %1 is expanded %3 %2.",
+		.result = "This %1 is expanded %3 %2. %4 %5",
 		.n_args = 0,
 		.word = "rexp2"
 	};
 	char* arg =	"Macro";
 	char* arg2 =	"indeed";
 	char* arg3 =	"now,";
+	char** args1 = malloc(sizeof(char*) * (3));
+	args1[0] = malloc(sizeof(char) * 10);
+	args1[1] = malloc(sizeof(char) * 10);
+	args1[2] = malloc(sizeof(char) * 10);
+	str_cpy(*args1, "Argu1");
+	str_cpy(*(args1 + 1), "Argu2");
+	str_cpy(*(args1 + 2), "Argu3");
 	expand t_test =
 	{
 		.reexpand = 1,
@@ -63,8 +70,8 @@ void macros_tests()
 	{
 		.reexpand = 1,
 		.word = "macro",
-		.n_args = 1,
-		.args = &arg,
+		.n_args = 3,
+		.args = args1,
 		.result = &s_test,
 	};
 
