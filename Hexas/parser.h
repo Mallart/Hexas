@@ -8,7 +8,7 @@ byte is_expandable(char** expands, char* word);
 
 // parses an assembly code into a sequence of bytes, contained the returned buffer.
 char* parse_asm(ASM* assembly, char* asm_code);
-char* parse_asm_line(ASM* assembly, char** expands, char* asm_line);
+HSENTENCE parse_asm_line(ASM* assembly, char** expands, char* asm_line);
 
 // Used to disassemble code (reverse engineering for instance).
 // Returns a buffer with the translated assembly.

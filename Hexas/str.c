@@ -310,3 +310,75 @@ void* mem_cpy(char* dest, char* source, size_t n_bytes)
 		dest[i] = source[i];
 	return dest;
 }
+
+int64 str_parse_num(char* str)
+{
+	uint64 
+		len = strlen(str),
+		radix = 10,
+		last_num = len;
+	char* _str = str_remove_comment(str);
+	str = str_trim(_str);
+	free(_str);
+
+	// looking for a number identifier (h for hex, d for decimal, o for octal.
+	for (uint64 i = len - 1; i > 0 && !is_num_c(str[i], 16); --i, last_num--);
+	char c = str[last_num];
+	switch (str[last_num])
+	{
+	case RADIX_HEX_CHAR:
+		radix = 16;
+		break;
+	case RADIX_OCT_CHAR:
+		radix = 8;
+		break;
+	default:
+		radix = 10;
+	}
+	return strtoll(str, 0, radix);
+}
+
+char* str_remove_comment(char* str)
+{
+	uint64 line_length = str_find_char(str, COMMENT_CHAR);
+	char* safe_malloc(_str, sizeof(char) * (1 + line_length));
+	mem_cpy(_str, str, line_length);
+	_str[line_length] = 0;
+	return _str;
+}
+
+byte is_num_c(char c, byte radix)
+{
+	// only number from this array are considered parsable.
+	char const* const nums = "0123456789abcdef";
+	for (byte i = 0; i < radix % 17; ++i)
+		if (c == nums[i])
+			return 1;
+	return 0;
+}
+
+byte is_radix_c(char c)
+{
+	return c == 'h' || c == 'd' || c == 'o';
+}
+
+byte is_num(char* token)
+{
+	token = str_trim(token);
+	uint64 len = strlen(token);
+	for (uint64 i = 0; i < len; ++i)
+		if (!is_num_c(token[i], 16))
+			if(!is_radix_c(token[i]))
+				return 0;
+			else
+				switch (token[i])
+				{
+				case RADIX_HEX_CHAR:
+					return 16;
+				case RADIX_DEC_CHAR:
+					return 10;
+				case RADIX_OCT_CHAR:
+					return 8;
+				}
+	return 1;
+}

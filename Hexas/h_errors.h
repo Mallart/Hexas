@@ -1,5 +1,10 @@
 #pragma once
+// stops the program with given code
 #define throw(code) exit(code);
+// ensures the program stops if the memory couldn't be allocated
+#define safe_malloc(var, size) var = malloc(size); if(!var) throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE)
+// tests heap with a quick and light memory allocation to know if it is corrupted
+#define test_heap { char* safe_malloc(__testptr__, 4); __testptr__[0] = 't'; printf("Testing %i in file %s...\n ", __LINE__, __FILE__); free(__testptr__); };
 typedef enum
 {
 	// normal behavior, usually returned at the end of the program.

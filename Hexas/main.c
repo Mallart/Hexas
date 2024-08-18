@@ -75,7 +75,15 @@ void macros_tests()
 		.result = &s_test,
 	};
 
-	printf("Trying to expand a macro: %s", exp_expand(&test));
+	printf("Trying to expand a macro: %s\n", exp_expand(&test));
+}
+
+void numbers_tests()
+{
+	printf("Trying to parse 16: %i\n", str_parse_num("10h"));
+	printf("Trying to parse 16: %i\n", str_parse_num("16"));
+	printf("Trying to parse 16: %i\n", str_parse_num("16d"));
+	printf("Trying to parse 16: %i\n", str_parse_num("20o"));
 }
 
 void tests()
@@ -87,6 +95,7 @@ void tests()
 	printf("Trying to get RFX registry: %s\n", asm_get_registry(&test_asm, asm_get_regcode(&test_asm, "RFX"))->name->str);
 	
 	macros_tests();
+	numbers_tests();
 	exit(0);
 }
 #endif

@@ -6,6 +6,11 @@
 #include <math.h>
 #include "h_errors.h"
 
+#define COMMENT_CHAR ';'
+#define RADIX_HEX_CHAR 'h'
+#define RADIX_DEC_CHAR 'd'
+#define RADIX_OCT_CHAR 'o'
+
 typedef unsigned char byte;
 typedef unsigned char BYTE;
 typedef unsigned char uint8;
@@ -24,6 +29,13 @@ typedef unsigned short WORD;
 typedef unsigned short uint16;
 typedef unsigned int DWORD;
 typedef unsigned int uint32;
+
+enum RADIX
+{
+	HEXADECIMAL,
+	DECIMAL,
+	OCTAL
+};
 
 typedef struct
 {
@@ -70,6 +82,12 @@ typedef struct HEXAS_BYTE
 
 #pragma pack(pop)
 
+// compiled sentence with size (in bits)
+typedef struct HEXAS_SENTENCE
+{
+	char* content;
+	uint32 size;
+} HSENTENCE, h_sentence, hsentence;
 
 // return the bit width (number of bits to write) n.
 size_t size_of(size_t n);

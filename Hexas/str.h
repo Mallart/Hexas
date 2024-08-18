@@ -68,3 +68,14 @@ size_t dstr_len(dstr* _str);
 
 char* str_cpy(char* dest, char* source);
 void* mem_cpy(char* dest, char* source, size_t n_bytes);
+
+int64 str_parse_num(char* str);
+// removes a comment from a string to keep only the actual code.
+// the character for a comment in assembly is ';'.
+char* str_remove_comment(char* str);
+
+// is a character numeric
+byte is_num_c(char c, byte radix);
+byte is_radix_c(char c);
+// returns 0 if the given token isn't a number. If it is, returns the radix.
+byte is_num(char* token);

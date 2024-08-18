@@ -19,4 +19,6 @@ typedef struct HEXAS_EXPAND
 	char** args;
 } expand, hexpand;
 
+// returns the final expanded macro.
+// should be called before actual compilation.
 char* exp_expand(expand* exp);
