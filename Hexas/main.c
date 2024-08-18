@@ -32,14 +32,33 @@ void main(int argc, char** argv)
 
 void macros_tests()
 {
-	expand s_test =
+	
+	expand q_test =
 	{
 		.reexpand = 0,
-		.result = "This %1 is expanded.",
+		.result = "This %1 is expanded %3 %2.",
 		.n_args = 0,
-		.word = "exp"
+		.word = "rexp2"
 	};
 	char* arg =	"Macro";
+	char* arg2 =	"indeed";
+	char* arg3 =	"now,";
+	expand t_test =
+	{
+		.reexpand = 1,
+		.result = &q_test,
+		.n_args = 1,
+		.word = "rexp",
+		.args = &arg3,
+	};
+	expand s_test =
+	{
+		.reexpand = 1,
+		.result = &t_test,
+		.n_args = 1,
+		.word = "exp",
+		.args = &arg2,
+	};
 	expand test =
 	{
 		.reexpand = 1,
