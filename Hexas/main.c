@@ -19,9 +19,9 @@ void main(int argc, char** argv)
 #endif
 	char* compiler_location = argv[0];
 	argv++; argc--;
-	// csv module location
 	if (argc < 2)
 		throw(COMPILER_NOT_ENOUGH_ARGUMENTS);
+	// csv module location
 	char* asm_location = argv[0];
 	char* codefile_location = argv[1];
 	asm_parse_csv(asm_location);
