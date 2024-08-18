@@ -21,3 +21,9 @@ each of these formats.
 Edit (09/08/24):
 For practical reasons, I decided that this project will only be the compiler of Hexas IDE.
 I decided to name this compiler Hexas.
+
+Edit(10/08/2024)
+Now I began writing the compiler itself (final process of compilation), I encountered some new problems.
+These are the direct and indirect addressing modes, that I don't treat differently at the moment, plus
+the precompilation of indirect addressing mode operation (exemple: [eax + ecx - 4]).
+I have to find a way to compile this, and quick.

@@ -31,4 +31,119 @@ void bprint(size_t n)
 	printf("\n");
 }
 
+byte hbyte_to_byte(HBYTE hb)
+{
+	return hb.b8 | hb.b7 | hb.b6 | hb.b5 | hb.b4 | hb.b3 | hb.b2 | hb.b1;
+}
 
+HBYTE byte_to_hbyte(byte b)
+{
+	return (HBYTE)
+	{
+		.b1 = b & 0b1,
+		.b2 = b & 0b10,
+		.b3 = b & 0b100,
+		.b4 = b & 0b1000,
+		.b5 = b & 0b10000,
+		.b6 = b & 0b100000,
+		.b7 = b & 0b1000000,
+		.b8 = b & 0b10000000
+	};
+}
+
+HBYTE and(HBYTE hb, byte b)
+{
+	return (HBYTE)
+	{
+		.b1 = hb.b1 & b,
+		.b2 = hb.b2 & b,
+		.b3 = hb.b3 & b,
+		.b4 = hb.b4 & b,
+		.b5 = hb.b5 & b,
+		.b6 = hb.b6 & b,
+		.b7 = hb.b7 & b,
+		.b8 = hb.b8 & b
+	};
+}
+
+HBYTE or(HBYTE hb, byte b)
+{
+	return (HBYTE)
+	{
+		.b1 = hb.b1 | b,
+		.b2 = hb.b2 | b,
+		.b3 = hb.b3 | b,
+		.b4 = hb.b4 | b,
+		.b5 = hb.b5 | b,
+		.b6 = hb.b6 | b,
+		.b7 = hb.b7 | b,
+		.b8 = hb.b8 | b
+	};
+}
+
+HBYTE xor(HBYTE hb, byte b)
+{
+	return (HBYTE)
+	{
+		.b1 = hb.b1 ^ b,
+		.b2 = hb.b2 ^ b,
+		.b3 = hb.b3 ^ b,
+		.b4 = hb.b4 ^ b,
+		.b5 = hb.b5 ^ b,
+		.b6 = hb.b6 ^ b,
+		.b7 = hb.b7 ^ b,
+		.b8 = hb.b8 ^ b
+	};
+}
+
+HBYTE lshift(HBYTE hb, byte b)
+{
+	for(byte i = 0; i < b; ++i)
+	{
+		hb.b1 = 0;
+		hb.b2 = hb.b1;
+		hb.b3 = hb.b2;
+		hb.b4 = hb.b3;
+		hb.b5 = hb.b4;
+		hb.b6 = hb.b5;
+		hb.b7 = hb.b6;
+		hb.b8 = hb.b7;
+	};
+	return hb;
+}
+
+HBYTE rshift(HBYTE hb, byte b)
+{
+	for (byte i = 0; i < b; ++i)
+	{
+		hb.b1 = hb.b2;
+		hb.b2 = hb.b3;
+		hb.b3 = hb.b4;
+		hb.b4 = hb.b5;
+		hb.b5 = hb.b6;
+		hb.b6 = hb.b7;
+		hb.b7 = hb.b8;
+		hb.b8 = hb.b8;
+	};
+	return hb;
+}
+
+uint64 n_decimals(int64 n)
+{
+	return llround(log10(n)) + 1;
+}
+
+HBYTE not(HBYTE hb, byte b)
+{
+	return (HBYTE)
+	{
+		.b1 = ~hb.b1,
+		.b2 = ~hb.b2,
+		.b3 = ~hb.b3,
+		.b4 = ~hb.b4,
+		.b5 = ~hb.b5,
+		.b6 = ~hb.b6,
+		.b7 = ~hb.b7,
+		.b8 = ~hb.b8
+	};
+}

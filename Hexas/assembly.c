@@ -89,7 +89,7 @@ LPOINT asm_get_max_index(ASM* asm)
 }
 
 
-char* asm_get_instruction(ASM* asm, uint64 opcode)
+char* asm_get_instruction_name(ASM* asm, uint64 opcode)
 {
     // getting the opcode size
     byte opcode_size = size_of(opcode);
@@ -105,7 +105,39 @@ char* asm_get_instruction(ASM* asm, uint64 opcode)
     return ((LPHWORD)TBL_F(get, asm->instructions, (LPOINT){x, y}))->name->str;
 }
 
-char* asm_get_registry(ASM* asm, uint64 regcode)
+LPHWORD asm_get_instruction(ASM* asm, uint64 opcode)
+{
+    // getting the opcode size
+    byte opcode_size = size_of(opcode);
+    if (opcode_size > TBL_F(rows_number, asm->instructions) + TBL_F(columns_number, asm->instructions))
+        // opcode too big for this instruction set; error
+        return "ERR";
+    // TODO
+    // row is most significant half of opcode, column the less significant half
+    size_t opcode_width = TBL_F(rows_number, asm->instructions);
+    size_t
+        x = opcode & (mask(size_of(opcode_width))),
+        y = (opcode & (mask(size_of(opcode_width)) << size_of(opcode_width))) >> size_of(opcode_width);
+    return (LPHWORD)TBL_F(get, asm->instructions, (LPOINT) { x, y });
+}
+
+LPHWORD asm_get_registry(ASM* asm, uint64 regcode)
+{
+    // getting the opcode size
+    byte opcode_size = size_of(regcode);
+    if (opcode_size > TBL_F(rows_number, asm->registries) + TBL_F(columns_number, asm->registries))
+        // opcode too big for this instruction set; error
+        return "ERR";
+    // TODO
+    // row is most significant half of opcode, column the less significant half
+    size_t opcode_width = TBL_F(rows_number, asm->registries);
+    size_t
+        x = regcode & (mask(size_of(opcode_width))),
+        y = (regcode & (mask(size_of(opcode_width)) << size_of(opcode_width))) >> size_of(opcode_width);
+    return (LPHWORD)TBL_F(get, asm->registries, (LPOINT) { x, y });
+}
+
+char* asm_get_registry_name(ASM* asm, uint64 regcode)
 {
     // getting the opcode size
     byte opcode_size = size_of(regcode);

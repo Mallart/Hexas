@@ -68,6 +68,18 @@ char** str_split(char* str, char delimiter)
 	return _array;
 }
 
+char* str_replace(char* str, uint64 caret, uint64 n_characters_replaced, char* inserted)
+{
+	uint64
+		len = strlen(str),
+		insert_len = strlen(inserted);
+	char* _str = malloc(sizeof(char) * (len + insert_len));
+	mem_cpy(_str, str, caret);
+	mem_cpy(_str + caret, inserted, insert_len);
+	mem_cpy(_str + insert_len + caret, str + caret + n_characters_replaced, len - caret);
+	return _str;
+}
+
 size_t str_table_size(char** strtable)
 {
 	size_t i = 0;
@@ -279,7 +291,7 @@ size_t dstr_len(dstr* _str)
 	return strlen(_str->str);
 }
 
-void str_cpy(char* dest, char* source)
+char* str_cpy(char* dest, char* source)
 {
 	if (!(dest && source))
 		throw(MEMORY_DEREFERENCED_POINTER_USED);
@@ -287,12 +299,14 @@ void str_cpy(char* dest, char* source)
 	for (; source[i]; ++i)
 		dest[i] = source[i];
 	dest[i] = 0;
+	return dest;
 }
 
-void mem_cpy(char* dest, char* source, size_t n_bytes)
+void* mem_cpy(char* dest, char* source, size_t n_bytes)
 {
 	if (!(dest && source))
 		throw(MEMORY_DEREFERENCED_POINTER_USED);
 	for (size_t i = 0; i < n_bytes; ++i)
 		dest[i] = source[i];
+	return dest;
 }

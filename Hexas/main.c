@@ -25,16 +25,42 @@ void main(int argc, char** argv)
 	char* asm_location = argv[0];
 	char* codefile_location = argv[1];
 	asm_parse_csv(asm_location);
+	// arguments and parsing
 }
 
 #ifdef DEBUG
+
+void macros_tests()
+{
+	expand s_test =
+	{
+		.reexpand = 0,
+		.result = "This %1 is expanded.",
+		.n_args = 0,
+		.word = "exp"
+	};
+	char* arg =	"Macro";
+	expand test =
+	{
+		.reexpand = 1,
+		.word = "macro",
+		.n_args = 1,
+		.args = &arg,
+		.result = &s_test,
+	};
+
+	printf("Trying to expand a macro: %s", exp_expand(&test));
+}
+
 void tests()
 {
 	ASM test_asm = asm_parse_csv("./asm_example.csv");
 	asm_display(&test_asm);
 	printf("0x%2x\n", asm_get_opcode(&test_asm, "PAUSE"));
-	printf("Trying to get PAUSE instruction: %s\n", asm_get_instruction(&test_asm, asm_get_opcode(&test_asm, "PAUSE")));
-	printf("Trying to get RFX registry: %s\n", asm_get_registry(&test_asm, asm_get_regcode(&test_asm, "RFX")));
+	printf("Trying to get PAUSE instruction: %s\n", asm_get_instruction(&test_asm, asm_get_opcode(&test_asm, "PAUSE"))->name->str);
+	printf("Trying to get RFX registry: %s\n", asm_get_registry(&test_asm, asm_get_regcode(&test_asm, "RFX"))->name->str);
+	
+	macros_tests();
 	exit(0);
 }
 #endif

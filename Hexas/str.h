@@ -25,6 +25,9 @@ char* str_remove_char(char* str, char c);
 void str_ptr_remove_char(char* str, char c);
 // returns an array of strings splitted by a delimiter. Last element of array is a null pointer.
 char** str_split(char* str, char delimiter);
+// returns a new string where n characters are replaced at the caret in str.
+// additionnal characters will be appended correctly but won't remove existing characters.
+char* str_replace(char* str, uint64 caret, uint64 n_characters_replaced, char* inserted);
 // returns the size of a string processed by the "str_split(char* str)" function
 size_t str_table_size(char** strtable);
 void delete_str_table(char** strtable);
@@ -63,5 +66,5 @@ void dstr_print(dstr* _str, FILE* stream);
 // returns the length of the string wrapped by the given dstr.
 size_t dstr_len(dstr* _str);
 
-void str_cpy(char* dest, char* source);
-void mem_cpy(char* dest, char* source, size_t n_bytes);
+char* str_cpy(char* dest, char* source);
+void* mem_cpy(char* dest, char* source, size_t n_bytes);

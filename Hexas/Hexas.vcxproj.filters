@@ -28,6 +28,9 @@
     <Filter Include="Fichiers d%27en-tête\debug">
       <UniqueIdentifier>{024b3d2b-3618-4a22-98f7-5e0bb68f449a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\compilation\verbose">
+      <UniqueIdentifier>{91272fed-89ed-49ec-9df1-ada636316e92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="h_errors.h">
       <Filter>Fichiers d%27en-tête\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="expand.h">
+      <Filter>Fichiers d%27en-tête\compilation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +105,9 @@
       <Filter>Fichiers sources\compilation\formats</Filter>
     </ClCompile>
     <ClCompile Include="mach-o.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="expand.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

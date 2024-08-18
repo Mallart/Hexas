@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="assembly.h" />
     <ClInclude Include="data_structures.h" />
+    <ClInclude Include="expand.h" />
     <ClInclude Include="h_errors.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="formats.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="assembly.c" />
     <ClCompile Include="data_structures.c" />
     <ClCompile Include="elf.c" />
+    <ClCompile Include="expand.c" />
     <ClCompile Include="files.c" />
     <ClCompile Include="intel_hex.c" />
     <ClCompile Include="linkedlist.c" />
