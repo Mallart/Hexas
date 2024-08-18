@@ -22,10 +22,10 @@ char* exp_expand(expand* exp)
 		// add called arguments first
 		for (byte i = 0; i < temp_exp->n_args; ++i)
 		{
-			next_args[i + temp_exp->n_args] = malloc(sizeof(char) * strlen(args[i]));
-			if (!next_args[i + temp_exp->n_args])
+			next_args[i + temp_nargs] = malloc(sizeof(char) * strlen(args[i]));
+			if (!next_args[i + temp_nargs])
 				throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
-			next_args[i + temp_exp->n_args] = str_cpy(next_args[i + temp_exp->n_args], args[i], sizeof(char) * strlen(args[i]));
+			next_args[i + temp_nargs] = str_cpy(next_args[i + temp_nargs], args[i], sizeof(char) * strlen(args[i]));
 		}
 
 		// append calling macro's args
