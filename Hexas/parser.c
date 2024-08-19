@@ -27,21 +27,51 @@ HSENTENCE parse_asm_line(ASM* assembly, char** expands, char* asm_line)
 	unsigned char* buffer = malloc(sizeof(char) * assembly->size * n_words);
 	if (!buffer)
 		throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE);
-	// there is only one word and thus, must be separated with a space instead of a regular 
-	// comma.
-	if (n_words == 1)
+	switch (n_words)
 	{
+	case 1:
+	{
+		// there is only one word and thus, must be separated with a space instead of a regular 
+		// comma.
 		char** sentence = str_split(asm_line, ' ');
 		uint64 opcode = asm_get_opcode(assembly, sentence[0]);
+		if (opcode == asm_error(assembly))
+			throw(PARSER_UNKOWN_INSTRUCTION);
+		LPHWORD instruction = asm_get_instruction(assembly, opcode);
+		if (!strlen(sentence[1]))
+		{
+			buffer[caret] = opcode;
+			return (HSENTENCE) { .content = buffer, .size = instruction->size};
+		}
 		uint64 code;
+		// second word shouldn't be an instruction.
+		if (asm_get_opcode(assembly, sentence[1]) != asm_error(assembly))
+			throw(PARSER_INVALID_OPERAND);
 		if (is_num(sentence[1]))
 			code = str_parse_num(sentence[1]);
 		else
 			code = asm_get_regcode(assembly, str_parse_num(sentence[1]));
 		buffer[caret] = opcode;
-		caret += size_of(opcode);
+		caret += instruction->size;
 		buffer[caret] = code;
-		return (HSENTENCE) { .content = buffer };
+		caret += size_of(code);
+		buffer[caret] = 0;
+		return (HSENTENCE) { .content = buffer, .size = instruction->size + size_of(code) };
+	}
+	case 2:
+	{
+		char** sentence = str_split(asm_line, ',');
+		// first word 
+		uint64 opcode = asm_get_opcode(assembly, sentence[0]);
+		if (opcode == asm_error(assembly))
+			throw(PARSER_UNKOWN_INSTRUCTION);
+		LPHWORD instruction1 = asm_get_instruction(assembly, opcode);
+
+	}
+	case 3:
+	{
+
+	}
 	}
 	// TODO: 
 	// 

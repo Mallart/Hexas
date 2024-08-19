@@ -160,6 +160,7 @@
     <ClCompile Include="elf.c" />
     <ClCompile Include="expand.c" />
     <ClCompile Include="files.c" />
+    <ClCompile Include="h_errors.c" />
     <ClCompile Include="intel_hex.c" />
     <ClCompile Include="linkedlist.c" />
     <ClCompile Include="mach-o.c" />

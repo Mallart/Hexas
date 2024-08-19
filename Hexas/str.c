@@ -350,7 +350,7 @@ char* str_remove_comment(char* str)
 byte is_num_c(char c, byte radix)
 {
 	// only number from this array are considered parsable.
-	char const* const nums = "0123456789abcdef";
+	char const* const nums = "0123456789abcdefABCDEF";
 	for (byte i = 0; i < radix % 17; ++i)
 		if (c == nums[i])
 			return 1;

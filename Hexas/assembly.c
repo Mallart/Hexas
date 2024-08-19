@@ -95,7 +95,7 @@ char* asm_get_instruction_name(ASM* asm, uint64 opcode)
     byte opcode_size = size_of(opcode);
     if (opcode_size > TBL_F(rows_number, asm->instructions) + TBL_F(columns_number, asm->instructions))
         // opcode too big for this instruction set; error
-        return "ERR";
+        return asm_error(asm);
     // TODO
     // row is most significant half of opcode, column the less significant half
     size_t opcode_width = TBL_F(rows_number, asm->instructions);
@@ -111,7 +111,7 @@ LPHWORD asm_get_instruction(ASM* asm, uint64 opcode)
     byte opcode_size = size_of(opcode);
     if (opcode_size > TBL_F(rows_number, asm->instructions) + TBL_F(columns_number, asm->instructions))
         // opcode too big for this instruction set; error
-        return "ERR";
+        return asm_error(asm);
     // TODO
     // row is most significant half of opcode, column the less significant half
     size_t opcode_width = TBL_F(rows_number, asm->instructions);
@@ -127,7 +127,7 @@ LPHWORD asm_get_registry(ASM* asm, uint64 regcode)
     byte opcode_size = size_of(regcode);
     if (opcode_size > TBL_F(rows_number, asm->registries) + TBL_F(columns_number, asm->registries))
         // opcode too big for this instruction set; error
-        return "ERR";
+        return asm_error(asm);
     // TODO
     // row is most significant half of opcode, column the less significant half
     size_t opcode_width = TBL_F(rows_number, asm->registries);
@@ -143,7 +143,7 @@ char* asm_get_registry_name(ASM* asm, uint64 regcode)
     byte opcode_size = size_of(regcode);
     if (opcode_size > TBL_F(rows_number, asm->registries) + TBL_F(columns_number, asm->registries))
         // opcode too big for this instruction set; error
-        return "ERR";
+        return asm_error(asm);
     // TODO
     // row is most significant half of opcode, column the less significant half
     size_t opcode_width = TBL_F(rows_number, asm->registries);
@@ -166,7 +166,7 @@ uint64 asm_get_opcode(ASM* asm, char* instruction)
                 return irow << size_of(TBL_F(rows_number, asm->instructions)) | icolumn;
         }
     }
-    return 0;
+    return asm_error(asm);
 }
 
 uint64 asm_get_regcode(ASM* asm, char* registry)
@@ -181,7 +181,7 @@ uint64 asm_get_regcode(ASM* asm, char* registry)
                 return irow << size_of(TBL_F(rows_number, asm->registries)) | icolumn;
         }
     }
-    return 0;
+    return asm_error(asm);
 }
 
 void asm_table_display(table* t)
@@ -245,4 +245,10 @@ void asm_display(ASM* asm)
     printf("Keywords set:\n");
     asm_table_display(asm->keywords);
     printf("---------------------------\n");
+}
+
+uint64 asm_error(ASM* asm)
+{
+    // cannot be reached normally.
+    return asm->size + 1;
 }

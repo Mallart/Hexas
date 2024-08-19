@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers sources\gui">
-      <UniqueIdentifier>{32f65bea-2138-4038-ac09-b88087eea618}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\compilation">
       <UniqueIdentifier>{06cbd990-b43a-4fb6-a162-a09d683cc4ea}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Fichiers sources\compilation\verbose">
       <UniqueIdentifier>{91272fed-89ed-49ec-9df1-ada636316e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\debug">
+      <UniqueIdentifier>{74c13ec5-f575-4126-af39-ffa5d9da57dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,10 +104,13 @@
     <ClCompile Include="intel_hex.c">
       <Filter>Fichiers sources\compilation\formats</Filter>
     </ClCompile>
-    <ClCompile Include="mach-o.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="expand.c">
+      <Filter>Fichiers sources\compilation\verbose</Filter>
+    </ClCompile>
+    <ClCompile Include="mach-o.c">
+      <Filter>Fichiers sources\compilation\formats</Filter>
+    </ClCompile>
+    <ClCompile Include="h_errors.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

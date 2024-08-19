@@ -1,6 +1,6 @@
 #pragma once
 // stops the program with given code
-#define throw(code) exit(code);
+#define throw(code) exit_with_error_message(code ,#code);
 // ensures the program stops if the memory couldn't be allocated
 #define safe_malloc(var, size) var = malloc(size); if(!var) throw(MEMORY_ALLOCATION_NOT_ENOUGH_SPACE)
 // tests heap with a quick and light memory allocation to know if it is corrupted
@@ -28,8 +28,14 @@ typedef enum
 	// Now for the compiler errors occuring during the compilation process itself;
 	
 	// Invalid operator used in assembly code.
-	CODE_INVALID_OPERATOR,
+	PARSER_INVALID_OPERAND,
+
 	// Invalid instruction used in assembly code. Try changing assembly reference ?
-	CODE_UNKOWN_INSTRUCTION,
+	PARSER_UNKOWN_INSTRUCTION,
+	// Invalid tokens placement.
+	PARSER_SYNTAX_ERROR,
 
 } HEXAS_COMPILER_ERROR;
+
+void exit_with_error(long long n);
+void exit_with_error_message(long long n, char* msg);

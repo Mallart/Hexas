@@ -92,3 +92,5 @@ uint64 asm_get_regcode(ASM* asm, char* registry);
 // Display an assembly table.
 void asm_table_display(table* t);
 void asm_table_display_line(table* t, uint64 index);
+// when an operation on assembly fails, it returns this.
+uint64 asm_error(ASM* asm);

@@ -5,6 +5,7 @@
 
 // arguments that the compiler can take
 static char const * const arguments[N_ARGS] = {
+	"-formats",
 	""
 };
 
@@ -81,6 +82,8 @@ void macros_tests()
 void numbers_tests()
 {
 	printf("Trying to parse 16: %i\n", str_parse_num("10h"));
+	printf("Trying to parse 15: %i\n", str_parse_num("fh"));
+	printf("Trying to parse 15: %i\n", str_parse_num("Fh"));
 	printf("Trying to parse 16: %i\n", str_parse_num("16"));
 	printf("Trying to parse 16: %i\n", str_parse_num("16d"));
 	printf("Trying to parse 16: %i\n", str_parse_num("20o"));
