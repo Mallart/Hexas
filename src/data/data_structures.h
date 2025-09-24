@@ -1,19 +1,19 @@
 #pragma once
+#include <stdint.h>
 #include "str.h"
+#include "../error/enum.h"
 
-typedef unsigned char byte;
-typedef short int16;
-typedef int int32;
-#ifdef _WIN32
-typedef long long int64;
-#else
-typedef long int64;
-#endif
+typedef uint8_t byte;
+// #region LEGACY
+typedef int16_t int16;
+typedef int32_t int32;
+typedef int64_t int64;
 
+// #region STRUCTURES
 
 typedef struct
 {
-	size_t x;
+	int64_t x;
 	size_t y;
 } upoint, uPoint, UPOINT, upoint2;
 
@@ -35,6 +35,8 @@ typedef struct
 	double y;
 } dpoint, dPoint, DPOINT, dpoint2;
 
+// #region MATHS
+
 // return the bit width (number of bits to write) n.
 size_t size_of(size_t n);
 // more reliable than size_of but slower.
@@ -44,3 +46,9 @@ size_t mask(size_t bit_width);
 
 // prints any number in binary.
 void bprint(size_t n);
+
+// returns the biggest number between a and b.
+static inline int64_t imax(int64_t a, int64_t b)
+{
+	return (a < b) ? b : a;
+}

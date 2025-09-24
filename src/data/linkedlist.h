@@ -7,6 +7,7 @@
 #define LINKED_LIST_FUNC(func, ...) linked_list_##func(__VA_ARGS__)
 // Linked list function
 #define LL_F(fname, ...) LINKED_LIST_FUNC(fname, __VA_ARGS__)
+// Linked list, linked element. They're represented the same in memory.
 typedef struct ll
 {
 	void* content;
