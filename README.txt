@@ -1,3 +1,6 @@
+# Hexas
+
+### Hexas IDE
 Hexas IDE is a software built to code easily in assembly language.
 It's made primarly as a personal research project to help me learn to code in the most used assemblies languages.
 Therefore, there are some guides provided with the software to code in several assembly languages.
@@ -56,3 +59,8 @@ The features I plan to add are:
 
 EDIT (25/07/2024):
 	I chose to code all the GUI using SDL, to keep my editor cross-platform and lightweight.
+EDIT (24/09/2025):
+	What the f*** was I doing a year back then 
+	Anyway 
+	I rewrote a good part of the code, structured it, and now working on memory leaks 
+	I'll do a GUI if I need to. Yeah I switched to Linux and now I'm using every CLI possible to mankind, editing config files mostly with nano, how could you tell ? Yeah I still have friends, thank you for asking.

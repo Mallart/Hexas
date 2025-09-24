@@ -1,24 +1,5 @@
 #include "str.h"
 
-dstr* DSTR_FUNC(new, char* content)
-{
-	dstr* r = malloc(sizeof(dstr));
-	if (!r)
-		return 0;
-	r->str = (char*)content;
-}
-
-void DSTR_FUNC(set, dstr* str, char* content)
-{
-	str->str = (char*)content;
-}
-
-void DSTR_FUNC(free, dstr* str)
-{
-	free(str->str);
-	free(str);
-}
-
 char* str_remove_char(char* str, char c)
 {
 	size_t len = strlen(str);
@@ -83,28 +64,6 @@ void delete_str_table(char** strtable)
 			free(strtable[i]);
 	if(strtable)
 		free(strtable);
-}
-
-dstr* str_to_dstr(char* str)
-{
-	dstr* d = malloc(sizeof(dstr));
-	if (!d)
-		return 0;
-	size_t _len = strlen(str);
-	d->str = malloc(sizeof(char) * _len ? _len : 1);
-	if (!d->str)
-		return 0;
-	if(_len)
-		strcpy(d->str, str);
-	else
-		strcpy(d->str, "\0");
-	free(str);
-	return d;
-}
-
-char* dstr_to_str(dstr* _dstr)
-{
-	return _dstr->str;
 }
 
 char* str_substr(char* str, size_t origin, size_t count)
@@ -214,6 +173,13 @@ char* str_trim(char* str)
 	for (; end > begin && prv_is_blank(_str[end]); --end);
 	_str[end + 1] = 0;
 	return _str;
+}
+
+char* allocated_string(char* str)
+{
+	char* string = malloc(sizeof(char) * strlen(str));
+	strcpy(string, str);
+	return string;
 }
 
 unsigned char str_equals(char* str1, char* str2)

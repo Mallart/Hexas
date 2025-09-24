@@ -4,7 +4,7 @@ table* TABLE_FUNC(new)
 {
 	table* t = malloc(sizeof(table));
 	if(t)
-		t->rows = new(LINKED_LIST);
+		t->rows = build(LINKED_LIST);
 	return t;
 }
 
@@ -23,43 +23,47 @@ void* TABLE_FUNC(get, table* t, LPOINT coordinates)
 	return LL_F(get, ((ll*)TBL_F(get_row, t, coordinates.y)), coordinates.x);
 }
 
-void TABLE_FUNC(print, table* t)
+void TABLE_FUNC(print, table* t, FILE* stream)
 {
-	printf("\n");
+	if(!stream)
+		puts("Invalid stream. Please use a supported stream to write data in.");
+	if(!t)
+		fputs("Cannot display a null table.", stream);
+	fputc('\n', stream);
 	// current row
 	le* _cr = LL_F(begin, t->rows);
 	size_t max_row_size = TBL_F(width, t) + (4 * (TBL_F(columns_number, t) - 1));
 	for (size_t i = 0;i < max_row_size; ++i)
-		printf("-");
-	printf("\n");
+		fputc('-', stream);
+	fputc('\n', stream);
 	for (size_t i = 0; i < LL_F(size, _cr); _cr = _cr->next, i++)
 	{
-		TBL_F(print_row, t, i);
-		printf("\n");
+		TBL_F(print_row, t, i, stream);
+		fputc('\n', stream);
 	}
 	for (size_t i = 0; i < max_row_size; ++i)
-		printf("-");
-	printf("\n");
+		fputc('-', stream);
+	fputc('\n', stream);
 }
 
-void TABLE_FUNC(print_row, table* t, size_t index)
+void TABLE_FUNC(print_row, table* t, size_t index, FILE* stream)
 {
 	// current cell
 	le* _cc = LL_F(begin, TBL_F(get_row, t, index));
 	// ending cell
 	le* _ec = LL_F(end, TBL_F(get_row, t, index));
 	size_t ll_size = LL_F(size, _cc);
-	printf("| ");
+	fputs("| ", stream);
 	for (size_t i = 0; i < ll_size; _cc = _cc->next, i++)
 	{
-		char* s = str_trim(((dstr*)_cc->content)->str);
-		printf(s);
+		char* s = str_trim(_cc->content);
+		fputs(s, stream);
 		size_t _len = strlen(s);
 		if(_len)
 			free(s);
 		for(size_t ii = 0; ii < TABLE_FUNC(max_column_width, t, i) - _len; ++ii)
-				printf(" ");
-		printf(" | ");
+				fputc(' ', stream);
+		fputs(" | ", stream);
 	}
 }
 
@@ -72,7 +76,7 @@ size_t TABLE_FUNC(max_column_width, table* t, size_t column_index)
 	{
 		_cr = LL_F(begin, TBL_F(get_row, t, row));
 		le* _cc = LL_F(get_index, _cr, column_index);
-		size_t row_size = strlen(((dstr*)_cc->content)->str);
+		size_t row_size = strlen(_cc->content);
 		max_row_size = max_row_size < row_size ? row_size : max_row_size;
 	}
 	return max_row_size;
@@ -87,8 +91,8 @@ size_t TABLE_FUNC(width, table* t)
 		size_t row_size = 0;
 		le* _cc = _cr->content;
 		for (; _cc->next; _cc = _cc->next)
-			row_size += strlen(((dstr*)_cc->content)->str);
-		row_size += strlen(((dstr*)_cc->content)->str);
+			row_size += strlen(_cc->content);
+		row_size += strlen(_cc->content);
 		biggest_row = biggest_row > row_size ? biggest_row : row_size;
 	}
 	return biggest_row;
@@ -99,7 +103,7 @@ size_t TABLE_FUNC(columns_number, table* t)
 	size_t max_n_cols = 0;
 	ll* _cr = TBL_F(get_row, t, 0);
 	for (size_t i = 0; i < LL_F(size, _cr); ++i, _cr = TBL_F(get_row, t, i))
-		max_n_cols = max(max_n_cols, LL_F(size, _cr));
+		max_n_cols = imax(max_n_cols, LL_F(size, _cr));
 	return max_n_cols;
 }
 
@@ -119,7 +123,7 @@ void TABLE_FUNC(free, table* t)
 
 linked_list* TABLE_FUNC(aslist, table* t)
 {
-	ll* list = new(LINKED_LIST);
+	ll* list = build(LINKED_LIST);
 	ll* row = TBL_F(get_row, t, 0);
 	for(size_t irow = 0; irow < LL_F(size, row); ++irow, row = TBL_F(get_row, t, irow))
 	{
